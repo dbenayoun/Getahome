@@ -1,0 +1,300 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 SIMULATEUR DE BUDGET TOTAL \'96 ACHAT IMMOBILIER EN ISRA\'cbL\
+====================================================\
+\
+Objectif\
+--------\
+Cr\'e9er un simulateur permettant d\'92estimer le BUDGET TOTAL n\'e9cessaire pour l\'92achat\
+d\'92un appartement en Isra\'ebl, incluant l\'92ensemble des frais obligatoires et optionnels.\
+\
+Le simulateur doit fonctionner \'e0 partir :\
+- de la ville\
+- du nombre de pi\'e8ces\
+- du prix d\'92achat estim\'e9\
+- du statut fiscal de l\'92acheteur\
+- du statut Ol\'e9 Hadach (oui / non)\
+- du recours ou non \'e0 des interm\'e9diaires\
+- du financement bancaire\
+- d\'92une conversion optionnelle en euros\
+\
+Sorties attendues :\
+1) Prix d\'92achat estim\'e9\
+2) D\'e9tail complet des frais\
+3) Total des frais annexes\
+4) Budget total du projet\
+5) Cash r\'e9ellement n\'e9cessaire\
+6) Comparaison Ol\'e9 Hadach / non Ol\'e9\
+7) Affichage en ILS et EUR\
+\
+\
+------------------------------------------------\
+I. INPUTS PRINCIPAUX\
+------------------------------------------------\
+\
+1. Ville\
+   - Liste d\'e9roulante\
+   - Chaque ville est associ\'e9e \'e0 un prix moyen par nombre de pi\'e8ces\
+\
+2. Nombre de pi\'e8ces\
+   - Champ num\'e9rique (2 / 3 / 4 / 5)\
+\
+3. Prix d\'92achat estim\'e9\
+   - Calcul automatique :\
+     Prix_achat = Prix_moyen_ville \'d7 Coefficient_nombre_pieces\
+   - Champ modifiable manuellement\
+\
+4. Profil de l\'92acheteur\
+   - R\'e9sidence principale (dira yehida)\
+   - Investissement / r\'e9sidence secondaire\
+\
+5. Statut Ol\'e9 Hadach\
+   - Oui / Non\
+   - Achat dans les 7 ans suivant l\'92Alyah\
+   - Avantage utilisable UNE SEULE FOIS\
+   - Impact UNIQUEMENT sur la taxe d\'92acquisition\
+\
+6. Achat avec financement bancaire\
+   - Oui / Non\
+\
+7. Apport personnel (%)\
+   - Exemple : 25 %, 30 %, 40 %\
+\
+8. Montant du pr\'eat\
+   - Calcul :\
+     Montant_pret = Prix_achat \'d7 (1 - Apport_%)\
+\
+\
+------------------------------------------------\
+II. TAXE D\'92ACQUISITION \'96 MAS RECHISHA\
+------------------------------------------------\
+\
+Principe fondamental\
+--------------------\
+La taxe d\'92acquisition est progressive par TRANCHES.\
+Chaque tranche du prix est tax\'e9e \'e0 un taux diff\'e9rent.\
+Le taux maximal ne s\'92applique JAMAIS \'e0 l\'92int\'e9gralit\'e9 du prix.\
+\
+Formule g\'e9n\'e9rale :\
+Mas_Rechisha = \uc0\u931  (Montant_tranche \'d7 Taux_tranche)\
+\
+\
+------------------------------------------------\
+A. R\'c9SIDENCE PRINCIPALE \'96 NON OL\'c9\
+------------------------------------------------\
+\
+Paliers indicatifs (\'e0 mettre \'e0 jour annuellement) :\
+\
+Tranche 1 : 0 \uc0\u8594  1 919 155 \u8362        \u8594  0 %\
+Tranche 2 : 1 919 155 \uc0\u8594  2 276 360 \u8362  \u8594  3,5 %\
+Tranche 3 : 2 276 360 \uc0\u8594  5 872 725 \u8362  \u8594  5 %\
+Tranche 4 : 5 872 725 \uc0\u8594  19 575 755 \u8362  \u8594  8 %\
+Tranche 5 : au-del\'e0                \uc0\u8594  10 %\
+\
+Calcul :\
+- Appliquer chaque taux UNIQUEMENT sur la tranche correspondante\
+- Additionner les montants\
+\
+\
+------------------------------------------------\
+B. R\'c9SIDENCE PRINCIPALE \'96 OL\'c9 HADACH\
+------------------------------------------------\
+\
+Conditions :\
+- Achat dans les 7 ans suivant l\'92Alyah\
+- Bien destin\'e9 \'e0 \'eatre habit\'e9\
+- Avantage applicable UNE SEULE FOIS\
+\
+Paliers Ol\'e9 Hadach (indicatifs) :\
+\
+Tranche 1 : 0 \uc0\u8594  1 978 745 \u8362         \u8594  0 %\
+Tranche 2 : 1 978 745 \uc0\u8594  5 872 725 \u8362  \u8594  0,5 %\
+Tranche 3 : 5 872 725 \uc0\u8594  19 575 755 \u8362  \u8594  5 %\
+Tranche 4 : au-del\'e0                \uc0\u8594  8 %\
+\
+R\'e9sultat :\
+- \'c9conomie potentielle de dizaines \'e0 centaines de milliers de \uc0\u8362 \
+- Impact MAJEUR sur le budget total\
+\
+\
+------------------------------------------------\
+C. INVESTISSEMENT / 2e BIEN\
+------------------------------------------------\
+\
+- Pas de tranche \'e0 0 %\
+- Taxe d\'e8s le premier shekel\
+\
+Taux indicatif :\
+- 8 % jusqu\'92\'e0 un certain plafond\
+- 10 % au-del\'e0\
+\
+Calcul :\
+Mas_Rechisha = Prix_achat \'d7 Taux_effectif\
+\
+\
+------------------------------------------------\
+III. AUTRES FRAIS (calcul\'e9s sur le prix d\'92achat)\
+------------------------------------------------\
+\
+TVA EN VIGUEUR : 18 %\
+\
+\
+1. Agent immobilier (optionnel)\
+-------------------------------\
+Commission HT : 2 %\
+\
+Agent_HT = Prix_achat \'d7 0.02\
+Agent_TTC = Agent_HT \'d7 1.18\
+\
+\
+2. Avocat acheteur\
+------------------\
+Commission HT : 1 %\
+\
+Avocat_HT = Prix_achat \'d7 0.01\
+Avocat_TTC = Avocat_HT \'d7 1.18\
+\
+Option achat neuf (kablan) :\
+- Avocat promoteur : 0,5 % HT\
+\
+Avocat_Kablan_HT = Prix_achat \'d7 0.005\
+Avocat_Kablan_TTC = Avocat_Kablan_HT \'d7 1.18\
+\
+\
+3. Shammai (expert immobilier)\
+------------------------------\
+Forfait recommand\'e9 :\
+Shammai = 3 500 \uc0\u8362 \
+(Champ modifiable)\
+\
+\
+4. Courtier en cr\'e9dit (optionnel)\
+--------------------------------\
+Commission HT : 1 % du montant du pr\'eat\
+\
+Courtier_HT = Montant_pret \'d7 0.01\
+Courtier_TTC = Courtier_HT \'d7 1.18\
+\
+\
+5. Frais cadastre / enregistrement\
+----------------------------------\
+Inclut :\
+- Tabu / Minhal / Hevra Meshaken\
+- Aharat Azharah\
+\
+Forfait :\
+Cadastre = 1 500 \uc0\u8362 \
+\
+\
+------------------------------------------------\
+IV. FRAIS LI\'c9S AU FINANCEMENT\
+------------------------------------------------\
+\
+Uniquement si pr\'eat = OUI\
+\
+\
+1. Frais de dossier bancaire\
+----------------------------\
+Taux moyen :\
+0,35 % du montant du pr\'eat\
+\
+Frais_dossier = Montant_pret \'d7 0.0035\
+\
+\
+2. Enregistrement de l\'92hypoth\'e8que\
+---------------------------------\
+Enregistrement_banque = 1 500 \uc0\u8362 \
+\
+\
+3. Assurances (non incluses dans le total)\
+------------------------------------------\
+- Assurance vie\
+- Assurance structure\
+\
+Estimation indicative :\
+150 \'e0 350 \uc0\u8362  / mois\
+\
+\
+------------------------------------------------\
+V. AUTRES FRAIS OPTIONNELS\
+------------------------------------------------\
+\
+1. Traductions / notaire / procuration\
+-------------------------------------\
+Forfait :\
+500 \uc0\u8362 \
+\
+\
+2. Frais de change / transferts internationaux\
+----------------------------------------------\
+Optionnel \'96 si fonds provenant de l\'92\'e9tranger\
+\
+Frais_FX = Montant_transfere \'d7 0.005\
+(0,5 % indicatif)\
+\
+\
+------------------------------------------------\
+VI. CONVERSION EN EUROS\
+------------------------------------------------\
+\
+- Taux EUR/ILS = moyenne des 3 derniers mois\
+- Champ visible et modifiable\
+\
+Montant_EUR = Montant_ILS / Taux_EUR_ILS\
+\
+\
+------------------------------------------------\
+VII. R\'c9SULTATS FINAUX\
+------------------------------------------------\
+\
+1. Total des frais annexes\
+-------------------------\
+Total_frais =\
+Mas_Rechisha\
++ Agent_TTC\
++ Avocat_TTC\
++ Avocat_Kablan_TTC\
++ Shammai\
++ Courtier_TTC\
++ Cadastre\
++ Frais_dossier\
++ Enregistrement_banque\
++ Traductions\
++ Frais_FX\
+\
+\
+2. Budget total du projet\
+------------------------\
+Budget_total = Prix_achat + Total_frais\
+\
+\
+3. Cash r\'e9ellement n\'e9cessaire\
+-----------------------------\
+Cash_necessaire = Apport + Total_frais\
+\
+\
+------------------------------------------------\
+VIII. UX / CONVERSION\
+------------------------------------------------\
+\
+Afficher :\
+- D\'e9tail ligne par ligne\
+- % des frais vs prix d\'92achat\
+- Comparaison Ol\'e9 Hadach / non Ol\'e9\
+- \'c9conomie r\'e9alis\'e9e gr\'e2ce au statut Ol\'e9\
+\
+CTA final :\
+- \'93Valider ces chiffres avec une experte\'94\
+- \'93R\'e9server un call d\'92analyse personnalis\'e9\'94\
+\
+Mention l\'e9gale :\
+\'93Cette estimation est indicative et ne remplace pas un conseil juridique ou fiscal personnalis\'e9.\'94\
+\
+------------------------------------------------\
+FIN DU DOCUMENT\
+------------------------------------------------}
