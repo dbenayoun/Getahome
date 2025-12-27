@@ -12,437 +12,388 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f5f5f5;
-            padding: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: transparent;
+            padding: 0;
         }
 
-        .calculator-container {
+        .widget-container {
             max-width: 900px;
             margin: 0 auto;
             background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            padding: 24px;
         }
 
-        .calculator-header {
-            background: linear-gradient(135deg, #116DFF 0%, #0D5DD6 100%);
-            color: white;
-            padding: 30px;
+        .widget-header {
             text-align: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f0f0f0;
         }
 
-        .calculator-header h1 {
-            font-size: 24px;
+        .widget-header h2 {
+            color: #000;
+            font-size: 22px;
+            margin-bottom: 4px;
             font-weight: 600;
-            margin-bottom: 8px;
+            letter-spacing: -0.5px;
         }
 
-        .calculator-header p {
-            font-size: 14px;
-            opacity: 0.9;
+        .widget-header p {
+            color: #666;
+            font-size: 13px;
+            font-weight: 400;
         }
 
-        .calculator-content {
-            padding: 30px;
+        .widget-content {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
         }
 
-        .form-section {
+        .input-section {
+            flex: 0 0 280px;
             background: #f8f9fa;
             border: 1px solid #e9ecef;
             border-radius: 4px;
-            padding: 25px;
-            margin-bottom: 20px;
+            padding: 20px;
         }
 
-        .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #116DFF;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+        .result-section {
+            flex: 1;
+            min-width: 0;
         }
 
         .form-group {
-            display: flex;
-            flex-direction: column;
+            margin-bottom: 16px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
         }
 
         label {
-            font-size: 13px;
+            display: block;
+            color: #444;
+            font-size: 12px;
             font-weight: 500;
-            color: #495057;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
+        input[type="text"],
         input[type="number"],
         select {
-            padding: 12px;
-            border: 1px solid #ced4da;
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 14px;
-            transition: all 0.2s;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #fafafa;
+            transition: all 0.2s ease;
         }
 
+        input[type="text"]:hover,
+        input[type="number"]:hover,
+        select:hover {
+            background-color: #f5f5f5;
+            border-color: #ccc;
+        }
+
+        input[type="text"]:focus,
         input[type="number"]:focus,
         select:focus {
             outline: none;
-            border-color: #116DFF;
-            box-shadow: 0 0 0 3px rgba(17, 109, 255, 0.1);
+            border-color: #999;
+            background-color: white;
         }
 
         .checkbox-group {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-top: 10px;
+            margin-top: 12px;
         }
 
         .checkbox-group input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
             cursor: pointer;
         }
 
         .checkbox-group label {
             margin: 0;
             cursor: pointer;
+            font-size: 12px;
         }
 
-        .calculate-button {
+        .calculate-btn {
             width: 100%;
-            padding: 16px;
+            padding: 12px;
             background: #116DFF;
             color: white;
             border: none;
-            border-radius: 4px;
-            font-size: 16px;
+            border-radius: 6px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            margin-top: 16px;
+            transition: background 0.2s;
         }
 
-        .calculate-button:hover {
-            background: #0D5DD6;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(17, 109, 255, 0.3);
+        .calculate-btn:hover {
+            background: #0d5cd9;
         }
 
-        .calculate-button:active {
-            transform: translateY(0);
-        }
-
-        .results {
-            display: none;
-            margin-top: 30px;
-        }
-
-        .results.show {
-            display: block;
+        .calculate-btn:active {
+            transform: scale(0.98);
         }
 
         .result-card {
             background: #f8f9fa;
             border: 1px solid #e9ecef;
+            padding: 20px;
             border-radius: 4px;
-            padding: 25px;
-            margin-bottom: 20px;
-        }
-
-        .result-main {
             text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, #116DFF 0%, #0D5DD6 100%);
-            color: white;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-
-        .result-main h2 {
-            font-size: 14px;
-            font-weight: 500;
-            opacity: 0.9;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .result-main .amount {
-            font-size: 42px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .result-main .subtitle {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .result-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .result-row:last-child {
-            border-bottom: none;
-        }
-
-        .result-row.total {
-            font-weight: 600;
-            font-size: 16px;
-            background: #e7f3ff;
-            margin: 10px -25px -25px -25px;
-            padding: 15px 25px;
-            border-bottom: none;
         }
 
         .result-label {
-            color: #495057;
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .result-value {
+        .result-price {
+            font-size: 32px;
             font-weight: 600;
+            margin: 8px 0;
+            color: #000;
+            letter-spacing: -1px;
+        }
+
+        .result-details {
+            margin-top: 16px;
+            text-align: left;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 13px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: #666;
+        }
+
+        .detail-value {
+            font-weight: 500;
             color: #000;
         }
 
-        .ole-comparison {
+        .result-total {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 2px solid #dee2e6;
+        }
+
+        .result-total .detail-row {
+            font-weight: 600;
+            font-size: 14px;
+            border-bottom: none;
+        }
+
+        .ole-badge {
+            display: inline-block;
+            padding: 4px 12px;
             background: #d4edda;
-            border: 1px solid #c3e6cb;
-            border-radius: 4px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .ole-comparison h3 {
             color: #155724;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-
-        .savings {
-            font-size: 24px;
-            font-weight: 700;
-            color: #155724;
-            text-align: center;
-            margin-top: 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 12px;
         }
 
         .disclaimer {
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             color: #999;
-            margin-top: 30px;
-            padding-top: 20px;
+            margin-top: 20px;
+            padding-top: 16px;
             border-top: 1px solid #f0f0f0;
         }
 
         @media (max-width: 768px) {
-            .calculator-content {
-                padding: 20px;
+            .widget-content {
+                flex-direction: column;
             }
 
-            .form-grid {
-                grid-template-columns: 1fr;
+            .input-section {
+                flex: 1;
+                width: 100%;
             }
 
-            .result-main .amount {
-                font-size: 32px;
+            .result-section {
+                width: 100%;
+            }
+
+            .widget-container {
+                padding: 16px;
+            }
+
+            .result-price {
+                font-size: 28px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="calculator-container">
-        <div class="calculator-header">
-            <h1>💰 Simulateur de Budget Total</h1>
-            <p>Achat Immobilier en Israël - Estimation complète des frais</p>
+    <div class="widget-container">
+        <div class="widget-header">
+            <h2>Simulateur de Budget Total</h2>
+            <p>Estimation des frais d'acquisition immobilière en Israël</p>
         </div>
 
-        <div class="calculator-content">
-            <!-- Formulaire -->
-            <div class="form-section">
-                <div class="section-title">📋 Informations de base</div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="prixAchat">Prix d'achat (₪)</label>
-                        <input type="number" id="prixAchat" value="4020000" min="0" step="10000">
-                    </div>
+        <div class="widget-content">
+            <!-- Inputs à gauche -->
+            <div class="input-section">
+                <div class="form-group">
+                    <label for="prixAchat">Prix d'achat (₪)</label>
+                    <input type="text" id="prixAchat" value="4,020,000" placeholder="4,000,000">
+                </div>
 
-                    <div class="form-group">
-                        <label for="typeAchat">Type d'achat</label>
-                        <select id="typeAchat">
-                            <option value="residence">Résidence principale</option>
-                            <option value="investissement">Investissement / 2e bien</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="typeAchat">Type d'achat</label>
+                    <select id="typeAchat">
+                        <option value="residence">Résidence principale</option>
+                        <option value="investissement">Investissement</option>
+                    </select>
+                </div>
 
-                    <div class="form-group">
-                        <label for="etatBien">État du bien</label>
-                        <select id="etatBien">
-                            <option value="ancien">Ancien (particulier)</option>
-                            <option value="neuf">Neuf (promoteur)</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="etatBien">État du bien</label>
+                    <select id="etatBien">
+                        <option value="ancien">Ancien</option>
+                        <option value="neuf">Neuf</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="apport">Apport (%)</label>
+                    <select id="apport">
+                        <option value="0.20">20%</option>
+                        <option value="0.25">25%</option>
+                        <option value="0.30" selected>30%</option>
+                        <option value="0.35">35%</option>
+                        <option value="0.40">40%</option>
+                        <option value="0.50">50%</option>
+                    </select>
                 </div>
 
                 <div class="checkbox-group">
                     <input type="checkbox" id="isOle">
-                    <label for="isOle">Je suis Olé Hadach (achat dans les 7 ans suivant l'Alyah)</label>
+                    <label for="isOle">Olé Hadach</label>
                 </div>
-            </div>
 
-            <div class="form-section">
-                <div class="section-title">💳 Financement</div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="apport">Apport personnel (%)</label>
-                        <select id="apport">
-                            <option value="0.20">20%</option>
-                            <option value="0.25">25%</option>
-                            <option value="0.30" selected>30%</option>
-                            <option value="0.35">35%</option>
-                            <option value="0.40">40%</option>
-                            <option value="0.50">50%</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <div class="section-title">🤝 Intermédiaires</div>
                 <div class="checkbox-group">
                     <input type="checkbox" id="avecAgent" checked>
-                    <label for="avecAgent">Agent immobilier (2% TTC)</label>
+                    <label for="avecAgent">Agent (2%)</label>
                 </div>
+
                 <div class="checkbox-group">
                     <input type="checkbox" id="avecCourtier" checked>
-                    <label for="avecCourtier">Courtier en crédit (1% TTC du prêt)</label>
+                    <label for="avecCourtier">Courtier (1%)</label>
                 </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="avecTraductions" checked>
-                    <label for="avecTraductions">Traductions / Notaire (500 ₪)</label>
-                </div>
+
+                <button class="calculate-btn" onclick="calculate()">Calculer</button>
             </div>
 
-            <button class="calculate-button" onclick="calculate()">
-                📊 Calculer le budget total
-            </button>
+            <!-- Résultats à droite -->
+            <div class="result-section">
+                <div id="resultCard" class="result-card">
+                    <div class="result-label">CASH NÉCESSAIRE</div>
+                    <div class="result-price" id="cashTotal">₪1,498,046</div>
+                    
+                    <div class="result-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Prix d'achat</span>
+                            <span class="detail-value" id="resPrixAchat">₪4,020,000</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Apport</span>
+                            <span class="detail-value" id="resApport">₪1,206,000</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Prêt</span>
+                            <span class="detail-value" id="resPret">₪2,814,000</span>
+                        </div>
+                    </div>
 
-            <!-- Résultats -->
-            <div id="results" class="results">
-                <div class="result-main">
-                    <h2>Cash Nécessaire</h2>
-                    <div class="amount" id="cashTotal">₪0</div>
-                    <div class="subtitle">Apport + Frais totaux</div>
-                </div>
+                    <div class="result-details" style="margin-top: 16px;">
+                        <div class="detail-row">
+                            <span class="detail-label">Taxe d'acquisition (Mas Rechisha)</span>
+                            <span class="detail-value" id="resMasRechisha">₪99,684</span>
+                        </div>
+                        <div class="detail-row" id="rowAgent">
+                            <span class="detail-label">Agent</span>
+                            <span class="detail-value" id="resAgent">₪94,872</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Avocat</span>
+                            <span class="detail-value" id="resAvocat">₪47,436</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Expertise du bien (Shammai)</span>
+                            <span class="detail-value">₪3,500</span>
+                        </div>
+                        <div class="detail-row" id="rowCourtier">
+                            <span class="detail-label">Courtier</span>
+                            <span class="detail-value" id="resCourtier">₪33,205</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Cadastre</span>
+                            <span class="detail-value">₪1,500</span>
+                        </div>
+                        <div class="detail-row" id="rowDossier">
+                            <span class="detail-label">Dossier banque</span>
+                            <span class="detail-value" id="resDossier">₪9,849</span>
+                        </div>
+                        <div class="detail-row" id="rowHypotheque">
+                            <span class="detail-label">Hypothèque</span>
+                            <span class="detail-value">₪1,500</span>
+                        </div>
+                    </div>
 
-                <div class="result-card">
-                    <div class="result-row">
-                        <span class="result-label">Prix d'achat</span>
-                        <span class="result-value" id="resPrixAchat">₪0</span>
+                    <div class="result-total">
+                        <div class="detail-row">
+                            <span class="detail-label">Total frais</span>
+                            <span class="detail-value" id="resTotalFrais">₪292,046</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Budget total</span>
+                            <span class="detail-value" id="resBudgetTotal">₪4,312,046</span>
+                        </div>
                     </div>
-                    <div class="result-row">
-                        <span class="result-label">Type de bien</span>
-                        <span class="result-value" id="resTypeBien">-</span>
-                    </div>
-                    <div class="result-row">
-                        <span class="result-label">État du bien</span>
-                        <span class="result-value" id="resEtatBien">-</span>
-                    </div>
-                </div>
 
-                <div class="result-card">
-                    <div class="section-title" style="margin-bottom: 15px;">💰 Financement</div>
-                    <div class="result-row">
-                        <span class="result-label">Apport personnel</span>
-                        <span class="result-value" id="resApport">₪0</span>
-                    </div>
-                    <div class="result-row">
-                        <span class="result-label">Montant du prêt</span>
-                        <span class="result-value" id="resPret">₪0</span>
-                    </div>
-                </div>
-
-                <div class="result-card">
-                    <div class="section-title" style="margin-bottom: 15px;">📋 Détail des frais</div>
-                    <div class="result-row">
-                        <span class="result-label">Taxe d'acquisition (Mas Rechisha)</span>
-                        <span class="result-value" id="resMasRechisha">₪0</span>
-                    </div>
-                    <div class="result-row" id="rowAgent">
-                        <span class="result-label">Agent immobilier (2% TTC)</span>
-                        <span class="result-value" id="resAgent">₪0</span>
-                    </div>
-                    <div class="result-row">
-                        <span class="result-label">Avocat</span>
-                        <span class="result-value" id="resAvocat">₪0</span>
-                    </div>
-                    <div class="result-row">
-                        <span class="result-label">Shammai (expert)</span>
-                        <span class="result-value" id="resShammai">₪3,500</span>
-                    </div>
-                    <div class="result-row" id="rowCourtier">
-                        <span class="result-label">Courtier crédit (1% TTC)</span>
-                        <span class="result-value" id="resCourtier">₪0</span>
-                    </div>
-                    <div class="result-row">
-                        <span class="result-label">Cadastre / Enregistrement</span>
-                        <span class="result-value" id="resCadastre">₪1,500</span>
-                    </div>
-                    <div class="result-row" id="rowDossier">
-                        <span class="result-label">Frais dossier bancaire</span>
-                        <span class="result-value" id="resDossier">₪0</span>
-                    </div>
-                    <div class="result-row" id="rowHypotheque">
-                        <span class="result-label">Enregistrement hypothèque</span>
-                        <span class="result-value" id="resHypotheque">₪1,500</span>
-                    </div>
-                    <div class="result-row" id="rowTraductions">
-                        <span class="result-label">Traductions / Notaire</span>
-                        <span class="result-value" id="resTraductions">₪500</span>
-                    </div>
-                    <div class="result-row total">
-                        <span class="result-label">TOTAL DES FRAIS</span>
-                        <span class="result-value" id="resTotalFrais">₪0</span>
-                    </div>
-                </div>
-
-                <div class="result-card">
-                    <div class="result-row">
-                        <span class="result-label">💵 BUDGET TOTAL DU PROJET</span>
-                        <span class="result-value" id="resBudgetTotal" style="font-size: 18px; color: #116DFF;">₪0</span>
-                    </div>
-                </div>
-
-                <div id="oleComparison" class="ole-comparison" style="display: none;">
-                    <h3>🎯 Comparaison Olé Hadach</h3>
-                    <div class="result-row" style="border: none; padding: 8px 0;">
-                        <span>Sans statut Olé:</span>
-                        <span id="oleNon">₪0</span>
-                    </div>
-                    <div class="result-row" style="border: none; padding: 8px 0;">
-                        <span>Avec statut Olé:</span>
-                        <span id="oleOui">₪0</span>
-                    </div>
-                    <div class="savings">
-                        💡 Économie: <span id="oleEconomie">₪0</span>
+                    <div id="oleBadge" style="display: none; text-align: center;">
+                        <div class="ole-badge">💡 Économie Olé: <span id="oleEconomie">₪89,478</span></div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="disclaimer">
-                ⚠️ Cette estimation est indicative et ne remplace pas un conseil juridique ou fiscal personnalisé.
-            </div>
+        <div class="disclaimer">
+            ⚠️ Estimation indicative - Ne remplace pas un conseil juridique ou fiscal personnalisé
         </div>
     </div>
 
@@ -592,82 +543,85 @@
             return '₪' + Math.round(amount).toLocaleString('fr-FR');
         }
 
+        function formatNumberInput(value) {
+            // Remove all non-digit characters
+            const number = value.replace(/\D/g, '');
+            // Format with thousands separator
+            return number.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        function parseFormattedNumber(value) {
+            // Remove commas and parse as float
+            return parseFloat(value.replace(/,/g, '')) || 0;
+        }
+
         function calculate() {
-            // Récupérer les valeurs
-            const prixAchat = parseFloat(document.getElementById('prixAchat').value);
-            const typeAchat = document.getElementById('typeAchat').value;
-            const etatBien = document.getElementById('etatBien').value;
-            const isOle = document.getElementById('isOle').checked;
-            const apport = parseFloat(document.getElementById('apport').value);
-            const avecAgent = document.getElementById('avecAgent').checked;
-            const avecCourtier = document.getElementById('avecCourtier').checked;
-            const avecTraductions = document.getElementById('avecTraductions').checked;
+            try {
+                console.log('Calculate function called');
+                
+                // Récupérer les valeurs
+                const prixAchat = parseFormattedNumber(document.getElementById('prixAchat').value);
+                const typeAchat = document.getElementById('typeAchat').value;
+                const etatBien = document.getElementById('etatBien').value;
+                const isOle = document.getElementById('isOle').checked;
+                const apport = parseFloat(document.getElementById('apport').value);
+                const avecAgent = document.getElementById('avecAgent').checked;
+                const avecCourtier = document.getElementById('avecCourtier').checked;
 
-            const achatNeuf = etatBien === 'neuf';
+                console.log('Inputs:', { prixAchat, typeAchat, etatBien, isOle, apport, avecAgent, avecCourtier });
 
-            // Calculer
-            const result = BudgetSimulator.calculateAllFees(
-                prixAchat, typeAchat, isOle, apport,
-                avecAgent, achatNeuf, avecCourtier, avecTraductions
-            );
+                const achatNeuf = etatBien === 'neuf';
 
-            // Afficher les résultats
-            document.getElementById('cashTotal').textContent = formatCurrency(result.cashNecessaire);
-            document.getElementById('resPrixAchat').textContent = formatCurrency(result.prixAchat);
-            
-            const typeBienText = typeAchat === 'residence' ? 'Résidence principale' : 'Investissement';
-            document.getElementById('resTypeBien').textContent = typeBienText;
-            
-            const etatBienText = achatNeuf ? 'Neuf (promoteur)' : 'Ancien (particulier)';
-            document.getElementById('resEtatBien').textContent = etatBienText;
+                // Calculer
+                const result = BudgetSimulator.calculateAllFees(
+                    prixAchat, typeAchat, isOle, apport,
+                    avecAgent, achatNeuf, avecCourtier, false
+                );
 
-            document.getElementById('resApport').textContent = 
-                `${formatCurrency(result.apport)} (${result.apportPourcent.toFixed(0)}%)`;
-            document.getElementById('resPret').textContent = formatCurrency(result.montantPret);
+                console.log('Result:', result);
 
-            document.getElementById('resMasRechisha').textContent = 
-                formatCurrency(result.fraisDetail.masRechisha);
-            document.getElementById('resAgent').textContent = 
-                formatCurrency(result.fraisDetail.agent);
-            document.getElementById('resAvocat').textContent = 
-                formatCurrency(result.fraisDetail.avocat);
-            document.getElementById('resCourtier').textContent = 
-                formatCurrency(result.fraisDetail.courtier);
-            document.getElementById('resDossier').textContent = 
-                formatCurrency(result.fraisDetail.dossierBanque);
-            document.getElementById('resHypotheque').textContent = 
-                formatCurrency(result.fraisDetail.hypotheque);
-            document.getElementById('resTraductions').textContent = 
-                formatCurrency(result.fraisDetail.traductions);
+                // Afficher les résultats principaux
+                document.getElementById('cashTotal').textContent = formatCurrency(result.cashNecessaire);
+                document.getElementById('resPrixAchat').textContent = formatCurrency(result.prixAchat);
+                document.getElementById('resApport').textContent = formatCurrency(result.apport);
+                document.getElementById('resPret').textContent = formatCurrency(result.montantPret);
 
-            // Masquer/afficher les lignes selon les options
-            document.getElementById('rowAgent').style.display = avecAgent ? 'flex' : 'none';
-            document.getElementById('rowCourtier').style.display = avecCourtier ? 'flex' : 'none';
-            document.getElementById('rowDossier').style.display = result.montantPret > 0 ? 'flex' : 'none';
-            document.getElementById('rowHypotheque').style.display = result.montantPret > 0 ? 'flex' : 'none';
-            document.getElementById('rowTraductions').style.display = avecTraductions ? 'flex' : 'none';
+                // Détail des frais
+                document.getElementById('resMasRechisha').textContent = 
+                    formatCurrency(result.fraisDetail.masRechisha);
+                document.getElementById('resAgent').textContent = 
+                    formatCurrency(result.fraisDetail.agent);
+                document.getElementById('resAvocat').textContent = 
+                    formatCurrency(result.fraisDetail.avocat);
+                document.getElementById('resCourtier').textContent = 
+                    formatCurrency(result.fraisDetail.courtier);
+                document.getElementById('resDossier').textContent = 
+                    formatCurrency(result.fraisDetail.dossierBanque);
 
-            document.getElementById('resTotalFrais').textContent = 
-                `${formatCurrency(result.totalFrais)} (${result.fraisPourcent.toFixed(1)}%)`;
-            document.getElementById('resBudgetTotal').textContent = 
-                formatCurrency(result.budgetTotal);
+                // Total
+                document.getElementById('resTotalFrais').textContent = formatCurrency(result.totalFrais);
+                document.getElementById('resBudgetTotal').textContent = formatCurrency(result.budgetTotal);
 
-            // Comparaison Olé
-            if (result.comparaisonOle) {
-                document.getElementById('oleComparison').style.display = 'block';
-                document.getElementById('oleNon').textContent = 
-                    formatCurrency(result.comparaisonOle.masNonOle);
-                document.getElementById('oleOui').textContent = 
-                    formatCurrency(result.comparaisonOle.masOle);
-                document.getElementById('oleEconomie').textContent = 
-                    formatCurrency(result.comparaisonOle.economie);
-            } else {
-                document.getElementById('oleComparison').style.display = 'none';
+                // Masquer/afficher les lignes selon les options
+                document.getElementById('rowAgent').style.display = avecAgent ? 'flex' : 'none';
+                document.getElementById('rowCourtier').style.display = avecCourtier ? 'flex' : 'none';
+                document.getElementById('rowDossier').style.display = result.montantPret > 0 ? 'flex' : 'none';
+                document.getElementById('rowHypotheque').style.display = result.montantPret > 0 ? 'flex' : 'none';
+
+                // Badge Olé
+                if (result.comparaisonOle && result.comparaisonOle.economie > 0) {
+                    document.getElementById('oleBadge').style.display = 'block';
+                    document.getElementById('oleEconomie').textContent = 
+                        formatCurrency(result.comparaisonOle.economie);
+                } else {
+                    document.getElementById('oleBadge').style.display = 'none';
+                }
+
+                console.log('Calculation completed successfully');
+            } catch (error) {
+                console.error('Error in calculate function:', error);
+                alert('Erreur lors du calcul: ' + error.message);
             }
-
-            // Afficher les résultats
-            document.getElementById('results').classList.add('show');
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
         // Désactiver la case Olé si investissement
@@ -677,12 +631,35 @@
             if (isInvest) {
                 document.getElementById('isOle').checked = false;
             }
-        });
-
-        // Calculer automatiquement au chargement
-        window.addEventListener('DOMContentLoaded', function() {
             calculate();
         });
+
+        // Format price input as user types
+        document.getElementById('prixAchat').addEventListener('input', function(e) {
+            const cursorPosition = e.target.selectionStart;
+            const oldValue = e.target.value;
+            const oldLength = oldValue.length;
+            
+            // Format the value
+            e.target.value = formatNumberInput(oldValue);
+            
+            // Adjust cursor position after formatting
+            const newLength = e.target.value.length;
+            const diff = newLength - oldLength;
+            e.target.setSelectionRange(cursorPosition + diff, cursorPosition + diff);
+            
+            calculate();
+        });
+
+        // Calculer en temps réel sur changement
+        document.getElementById('etatBien').addEventListener('change', calculate);
+        document.getElementById('isOle').addEventListener('change', calculate);
+        document.getElementById('apport').addEventListener('change', calculate);
+        document.getElementById('avecAgent').addEventListener('change', calculate);
+        document.getElementById('avecCourtier').addEventListener('change', calculate);
+
+        // Calculer automatiquement au chargement
+        window.addEventListener('DOMContentLoaded', calculate);
     </script>
 </body>
 </html>
