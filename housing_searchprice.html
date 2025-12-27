@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recherche de Prix Immobilier</title>
+    <title>Prix Immobilier</title>
     <style>
         * {
             margin: 0;
@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Helvetica, Arial, sans-serif;
             background-color: transparent;
             padding: 0;
         }
@@ -92,7 +92,7 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 14px;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Helvetica, Arial, sans-serif;
             background-color: #fafafa;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -218,6 +218,11 @@
             text-decoration: underline;
         }
 
+        .data-source #resultPeriod {
+            color: #666;
+            margin-right: 4px;
+        }
+
         @media (max-width: 768px) {
             .widget-content {
                 flex-direction: column;
@@ -240,11 +245,6 @@
 </head>
 <body>
     <div class="widget-container">
-        <div class="widget-header">
-            <h2>Recherche de Prix Immobilier</h2>
-            <p>Prix moyens par ville et nombre de pièces</p>
-        </div>
-
         <div class="widget-content">
             <div class="search-section">
                 <div class="search-inputs">
@@ -266,7 +266,6 @@
 
             <div class="result-section">
                 <div class="result-card" id="resultCard">
-                    <div class="result-label" id="resultPeriod">T3 2025</div>
                     <div class="result-price" id="resultPrice">₪4,020,000</div>
                     <div class="result-location" id="resultLocation">Tel Aviv - 4-3.5</div>
                     <div class="result-change" id="resultChange">+5.8% sur 1 an</div>
@@ -280,7 +279,7 @@
         </div>
 
         <div class="data-source">
-            Source des données : <a href="https://www.gov.il/en/departments/central_bureau_of_statistics/govil-landing-page" target="_blank" rel="noopener noreferrer">Israel: Central Bureau of Statistics (CBS)</a>
+            Source des données : <a href="https://www.gov.il/en/departments/central_bureau_of_statistics/govil-landing-page" target="_blank" rel="noopener noreferrer">Israel: Central Bureau of Statistics (CBS)</a> - <span id="resultPeriod">Dernière mise à jour au 30/09/2025</span>
         </div>
     </div>
 
@@ -389,8 +388,18 @@
                 Math.abs(new Date(item.Quarter_ts).getTime() - fiveYearsAgo.getTime()) < 100 * 24 * 60 * 60 * 1000 // Within 100 days
             );
 
-            // Update display
-            document.getElementById('resultPeriod').textContent = `T${data.Quarter} ${data.Year}`;
+            // Update display - Calculate end date of quarter and format as "Dernière mise à jour au DD/MM/YYYY"
+            const quarterNum = parseInt(data.Quarter.replace('Q', '')); // Extract "3" from "3Q"
+            let endMonth, endDay;
+            switch(quarterNum) {
+                case 1: endMonth = 2; endDay = 31; break; // March 31 (month 2 = March, 0-indexed)
+                case 2: endMonth = 5; endDay = 30; break; // June 30 (month 5 = June)
+                case 3: endMonth = 8; endDay = 30; break; // September 30 (month 8 = September)
+                case 4: endMonth = 11; endDay = 31; break; // December 31 (month 11 = December)
+            }
+            const endDate = new Date(data.Year, endMonth, endDay);
+            const formattedDate = endDate.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            document.getElementById('resultPeriod').textContent = `Dernière mise à jour au ${formattedDate}`;
             // Display full price in shekels (data is in millions, multiply by 1,000,000)
             const fullPrice = Math.round(price * 1000000);
             document.getElementById('resultPrice').textContent = `₪${fullPrice.toLocaleString('fr-FR')}`;
