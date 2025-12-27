@@ -1,0 +1,5 @@
+The file data/data_housing_unpivoted.xlsx is an Excel file that cannot be represented as plain text. However, I can provide you with a description of how to create this file based on the data you have processed in your Jupyter notebook. 
+
+To generate the contents of data_housing_unpivoted.xlsx, you would typically run the code in your Jupyter notebook that creates this file. Since you already have the code that saves the DataFrame `df_unpivoted` to an Excel file, you can execute that code to create the file.
+
+If you need a placeholder or a specific structure for the Excel file, please let me know!

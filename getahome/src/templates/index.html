@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historical Average Price Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Historical Average Price Data Visualization</h1>
+    </header>
+    <main>
+        <section id="controls">
+            <h2>Controls</h2>
+            <label for="area-select">Select Area:</label>
+            <select id="area-select">
+                <!-- Options will be populated dynamically -->
+            </select>
+
+            <label for="time-frame">Select Time Frame:</label>
+            <input type="date" id="start-date">
+            <input type="date" id="end-date">
+
+            <button id="update-button">Update</button>
+        </section>
+
+        <section id="visualization">
+            <h2>Visualization</h2>
+            <div id="chart-container">
+                <!-- Chart will be rendered here -->
+            </div>
+        </section>
+
+        <section id="top-gainers-losers">
+            <h2>Top Gainers and Losers</h2>
+            <div id="gainers">
+                <h3>Top Gainers</h3>
+                <ul id="gainers-list">
+                    <!-- Gainers will be populated dynamically -->
+                </ul>
+            </div>
+            <div id="losers">
+                <h3>Top Losers</h3>
+                <ul id="losers-list">
+                    <!-- Losers will be populated dynamically -->
+                </ul>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Get A Home. All rights reserved.</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

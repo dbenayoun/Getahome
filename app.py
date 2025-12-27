@@ -7,6 +7,179 @@ from datetime import datetime
 # Page config
 st.set_page_config(page_title="GetAHome - Housing Market Analysis", layout="wide", page_icon="🏠")
 
+# Custom CSS to match professional Wix-style design
+st.markdown("""
+<style>
+    /* Main color scheme */
+    :root {
+        --primary-color: #116DFF;
+        --secondary-color: #5F6360;
+        --background-color: #FFFFFF;
+        --text-color: #000000;
+        --light-gray: #F5F5F5;
+        --border-color: #E0E0E0;
+    }
+    
+    /* Global styling */
+    .stApp {
+        background-color: var(--background-color);
+    }
+    
+    /* Header styling */
+    h1 {
+        color: var(--text-color) !important;
+        font-family: 'Arial', 'Helvetica', sans-serif !important;
+        font-weight: 700 !important;
+        padding-bottom: 0.5rem;
+        font-size: 2.5rem !important;
+    }
+    
+    h2, h3 {
+        color: var(--text-color) !important;
+        font-family: 'Arial', 'Helvetica', sans-serif !important;
+        font-weight: 600 !important;
+    }
+    
+    /* Sidebar styling */
+    [data-testid="stSidebar"] {
+        background-color: var(--light-gray);
+        padding: 2rem 1rem;
+    }
+    
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3 {
+        color: var(--text-color) !important;
+    }
+    
+    /* Metric cards */
+    [data-testid="stMetricValue"] {
+        font-size: 32px;
+        color: var(--primary-color) !important;
+        font-weight: 700 !important;
+    }
+    
+    [data-testid="stMetricLabel"] {
+        color: var(--secondary-color) !important;
+        font-size: 16px !important;
+        font-weight: 500 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    [data-testid="stMetricDelta"] {
+        font-size: 14px !important;
+    }
+    
+    /* Button styling */
+    .stButton>button {
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 24px;
+        border: none;
+        padding: 0.5rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        font-family: 'Arial', 'Helvetica', sans-serif;
+    }
+    
+    .stButton>button:hover {
+        background-color: #0D5DD6;
+        box-shadow: 0 4px 12px rgba(17, 109, 255, 0.3);
+        transform: translateY(-2px);
+    }
+    
+    /* Tabs styling */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 2rem;
+        border-bottom: 2px solid var(--light-gray);
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        color: var(--secondary-color);
+        font-weight: 600;
+        padding-bottom: 1rem;
+        font-size: 16px;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        color: var(--primary-color) !important;
+        border-bottom: 3px solid var(--primary-color);
+    }
+    
+    /* Selectbox and multiselect */
+    .stSelectbox, .stMultiSelect {
+        font-family: 'Arial', 'Helvetica', sans-serif;
+    }
+    
+    /* Dataframe styling */
+    [data-testid="stDataFrame"] {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+    }
+    
+    /* Info boxes */
+    .stAlert {
+        border-radius: 8px;
+        border-left: 4px solid var(--primary-color);
+    }
+    
+    /* Custom card styling */
+    .custom-card {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid var(--border-color);
+        margin-bottom: 1rem;
+    }
+    
+    /* Price lookup styling */
+    .price-display {
+        background: linear-gradient(135deg, #116DFF 0%, #0D5DD6 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 4px 16px rgba(17, 109, 255, 0.2);
+    }
+    
+    .price-value {
+        font-size: 3rem;
+        font-weight: 700;
+        margin: 0.5rem 0;
+    }
+    
+    .price-label {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Divider */
+    hr {
+        margin: 2rem 0;
+        border: none;
+        border-top: 2px solid var(--light-gray);
+    }
+    
+    /* Download button */
+    .stDownloadButton>button {
+        background-color: #00B894;
+        color: white;
+        border-radius: 24px;
+        border: none;
+        padding: 0.5rem 2rem;
+        font-weight: 600;
+    }
+    
+    .stDownloadButton>button:hover {
+        background-color: #00A383;
+        box-shadow: 0 4px 12px rgba(0, 184, 148, 0.3);
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # Load data
 @st.cache_data
 def load_data():
@@ -33,8 +206,84 @@ def load_data():
 
 df = load_data()
 
-# Header
-st.title("🏠 GetAHome - Israeli Housing Market Analysis")
+# Header with professional styling
+col1, col2 = st.columns([3, 1])
+with col1:
+    st.title("🏠 GetAHome")
+    st.markdown("### Israeli Housing Market Analysis")
+with col2:
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown(f"**Last Updated:** {df['Quarter_ts'].max().strftime('%B %Y')}")
+
+st.markdown("---")
+
+# Quick Price Lookup Widget
+st.markdown("### 💰 Quick Price Lookup")
+st.markdown("*Get the latest average price for any city and room size*")
+
+lookup_col1, lookup_col2, lookup_col3 = st.columns([2, 2, 3])
+
+with lookup_col1:
+    # Get all cities (excluding districts)
+    all_cities = sorted([area for area in df['Area'].unique() if not df[df['Area'] == area]['Is_District'].iloc[0]])
+    lookup_city = st.selectbox(
+        "Select City",
+        options=all_cities,
+        key="lookup_city",
+        index=all_cities.index('Tel Aviv') if 'Tel Aviv' in all_cities else 0
+    )
+
+with lookup_col2:
+    # Get all room types
+    all_room_types = sorted(df['Rooms'].unique())
+    lookup_rooms = st.selectbox(
+        "Select Room Size",
+        options=all_room_types,
+        index=all_room_types.index('All') if 'All' in all_room_types else 0,
+        key="lookup_rooms"
+    )
+
+with lookup_col3:
+    if lookup_city and lookup_rooms:
+        # Get the latest quarter data
+        latest_quarter = df['Quarter_ts'].max()
+        lookup_data = df[
+            (df['Area'] == lookup_city) & 
+            (df['Rooms'] == lookup_rooms) & 
+            (df['Quarter_ts'] == latest_quarter)
+        ]
+        
+        if not lookup_data.empty:
+            price = lookup_data['Average Price'].iloc[0]
+            quarter_str = lookup_data['Quarter'].iloc[0]
+            year_str = lookup_data['Year'].iloc[0]
+            
+            # Calculate YoY change if available
+            year_ago = latest_quarter - pd.DateOffset(years=1)
+            prev_data = df[
+                (df['Area'] == lookup_city) & 
+                (df['Rooms'] == lookup_rooms) & 
+                (df['Quarter_ts'] == year_ago)
+            ]
+            
+            st.markdown("<br>", unsafe_allow_html=True)
+            if not prev_data.empty:
+                prev_price = prev_data['Average Price'].iloc[0]
+                change = ((price - prev_price) / prev_price) * 100
+                st.metric(
+                    label=f"Average Price ({quarter_str} {year_str})",
+                    value=f"₪{price*1000:,.0f}K",
+                    delta=f"{change:+.1f}% YoY"
+                )
+            else:
+                st.metric(
+                    label=f"Average Price ({quarter_str} {year_str})",
+                    value=f"₪{price*1000:,.0f}K"
+                )
+        else:
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.warning("⚠️ No data available for this combination")
+
 st.markdown("---")
 
 # Sidebar filters
@@ -156,34 +405,57 @@ else:
     # Group by quarter and series
     trend_data = df_filtered.groupby(['Quarter_ts', 'Series', 'Area', 'Rooms'])['Average Price'].mean().reset_index()
     
+    # Professional color palette
+    colors = ['#116DFF', '#0D5DD6', '#00B894', '#FF6B6B', '#4ECDC4', 
+              '#FFD93D', '#6C5CE7', '#FD79A8', '#74B9FF', '#FDCB6E']
+    
     # Create the main chart
     fig = px.line(trend_data, 
                  x='Quarter_ts', 
                  y='Average Price', 
                  color='Series',
-                 title=f'Housing Prices: {len(selected_areas)} Area(s) × 1 Room Type = {len(trend_data["Series"].unique())} Series',
-                 labels={'Quarter_ts': 'Date', 'Average Price': 'Average Price (₪)', 'Series': 'Area - Rooms'},
-                 markers=True)
+                 title=f'Housing Prices Over Time: {len(selected_areas)} Area(s) × {selected_room}',
+                 labels={'Quarter_ts': 'Quarter', 'Average Price': 'Average Price (₪ Thousands)', 'Series': 'Location - Room Size'},
+                 markers=True,
+                 color_discrete_sequence=colors)
     
-    # Make the line smooth
-    fig.update_traces(line_shape='spline')
+    # Professional styling
+    fig.update_traces(line_shape='spline', line=dict(width=3), marker=dict(size=8))
     
-    # Format x-axis to show quarters (e.g., 1Q25)
+    # Format x-axis to show quarters
     fig.update_xaxes(
         tickformat="%qQ%y",
-        dtick="M3"  # Show tick every quarter
+        dtick="M3",
+        gridcolor='#F5F5F5',
+        showgrid=True,
+        title_font=dict(size=14, color='#5F6360', family='Arial, Helvetica, sans-serif')
+    )
+    
+    fig.update_yaxes(
+        gridcolor='#F5F5F5',
+        showgrid=True,
+        title_font=dict(size=14, color='#5F6360', family='Arial, Helvetica, sans-serif')
     )
     
     fig.update_layout(
         height=600, 
         hovermode='x unified',
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        font=dict(family="Arial, Helvetica, sans-serif", size=13, color="#000000"),
+        title_font=dict(size=20, color='#000000', family="Arial, Helvetica, sans-serif"),
         legend=dict(
             orientation="v",
             yanchor="top",
             y=1,
             xanchor="left",
-            x=1.02
-        )
+            x=1.02,
+            bgcolor="rgba(255,255,255,0.9)",
+            bordercolor="#E0E0E0",
+            borderwidth=1,
+            font=dict(size=12)
+        ),
+        margin=dict(l=60, r=200, t=80, b=60)
     )
     st.plotly_chart(fig, use_container_width=True)
     
@@ -203,11 +475,21 @@ else:
                      x='Area', 
                      y='Average Price',
                      title='Latest Average Prices by Area',
-                     labels={'Average Price': 'Average Price (₪)'},
+                     labels={'Average Price': 'Average Price (₪ Thousands)'},
                      color='Average Price',
-                     color_continuous_scale='Viridis')
+                     color_continuous_scale=[[0, '#E3F2FD'], [0.5, '#116DFF'], [1, '#0D5DD6']])
         
-        fig3.update_layout(height=400, xaxis_tickangle=-45)
+        fig3.update_layout(
+            height=500,
+            plot_bgcolor='white',
+            paper_bgcolor='white',
+            font=dict(family="Arial, Helvetica, sans-serif", size=13),
+            xaxis=dict(gridcolor='#F5F5F5', tickangle=-45, title_font=dict(size=14, color='#5F6360')),
+            yaxis=dict(gridcolor='#F5F5F5', title_font=dict(size=14, color='#5F6360')),
+            title_font=dict(size=18, color='#000000', family="Arial, Helvetica, sans-serif"),
+            showlegend=False
+        )
+        fig3.update_traces(marker_line_color='#E0E0E0', marker_line_width=1)
         st.plotly_chart(fig3, use_container_width=True)
     
     with tab2:
@@ -243,17 +525,28 @@ else:
                          title='Areas with Highest Price Growth',
                          labels={'Change %': 'Price Change (%)'},
                          color='Change %',
-                         color_continuous_scale='Greens')
+                         color_continuous_scale=[[0, '#C8E6C9'], [0.5, '#4CAF50'], [1, '#2E7D32']])
             
-            fig5.update_layout(height=400, xaxis_tickangle=-45)
+            fig5.update_layout(
+                height=450,
+                xaxis_tickangle=-45,
+                plot_bgcolor='white',
+                paper_bgcolor='white',
+                font=dict(family="Arial, Helvetica, sans-serif", size=12),
+                xaxis=dict(gridcolor='#F5F5F5', title_font=dict(size=13)),
+                yaxis=dict(gridcolor='#F5F5F5', title_font=dict(size=13)),
+                title_font=dict(size=16, color='#000000'),
+                showlegend=False
+            )
+            fig5.update_traces(marker_line_color='#E0E0E0', marker_line_width=1)
             st.plotly_chart(fig5, use_container_width=True)
             
             st.dataframe(
                 top_gainers[['Area', 'Change %', 'Earliest Price', 'Latest Price']].style.format({
                     'Change %': '{:.2f}%',
-                    'Earliest Price': '₪{:,.0f}',
-                    'Latest Price': '₪{:,.0f}'
-                }),
+                    'Earliest Price': '₪{:,.0f}K',
+                    'Latest Price': '₪{:,.0f}K'
+                }).background_gradient(subset=['Change %'], cmap='Greens'),
                 hide_index=True,
                 use_container_width=True
             )
@@ -268,17 +561,28 @@ else:
                          title='Areas with Lowest Price Growth',
                          labels={'Change %': 'Price Change (%)'},
                          color='Change %',
-                         color_continuous_scale='Reds')
+                         color_continuous_scale=[[0, '#EF5350'], [0.5, '#E57373'], [1, '#FFCDD2']])
             
-            fig6.update_layout(height=400, xaxis_tickangle=-45)
+            fig6.update_layout(
+                height=450,
+                xaxis_tickangle=-45,
+                plot_bgcolor='white',
+                paper_bgcolor='white',
+                font=dict(family="Arial, Helvetica, sans-serif", size=12),
+                xaxis=dict(gridcolor='#F5F5F5', title_font=dict(size=13)),
+                yaxis=dict(gridcolor='#F5F5F5', title_font=dict(size=13)),
+                title_font=dict(size=16, color='#000000'),
+                showlegend=False
+            )
+            fig6.update_traces(marker_line_color='#E0E0E0', marker_line_width=1)
             st.plotly_chart(fig6, use_container_width=True)
             
             st.dataframe(
                 top_losers[['Area', 'Change %', 'Earliest Price', 'Latest Price']].style.format({
                     'Change %': '{:.2f}%',
-                    'Earliest Price': '₪{:,.0f}',
-                    'Latest Price': '₪{:,.0f}'
-                }),
+                    'Earliest Price': '₪{:,.0f}K',
+                    'Latest Price': '₪{:,.0f}K'
+                }).background_gradient(subset=['Change %'], cmap='Reds_r'),
                 hide_index=True,
                 use_container_width=True
             )
@@ -322,4 +626,10 @@ else:
 
 # Footer
 st.markdown("---")
-st.markdown("💡 **Tip:** Use the sidebar filters to customize your analysis")
+col_f1, col_f2, col_f3 = st.columns(3)
+with col_f1:
+    st.markdown("💡 **Tip:** Use the sidebar filters to customize your analysis")
+with col_f2:
+    st.markdown(f"📊 **Data Source:** Israeli Housing Market Data")
+with col_f3:
+    st.markdown(f"🕒 **Last Refresh:** {datetime.now().strftime('%d/%m/%Y %H:%M')}")
