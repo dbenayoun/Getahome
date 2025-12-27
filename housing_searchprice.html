@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GetAHome - Price Lookup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .widget-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .widget-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .widget-header h2 {
+            color: #000;
+            font-size: 28px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .widget-header p {
+            color: #5f6360;
+            font-size: 14px;
+        }
+
+        .search-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: #5f6360;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group select {
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-group select:hover {
+            border-color: #116DFF;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #116DFF;
+            box-shadow: 0 0 0 3px rgba(17, 109, 255, 0.1);
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #116DFF 0%, #0D5DD6 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(17, 109, 255, 0.2);
+            display: none;
+        }
+
+        .result-card.show {
+            display: block;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-price {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .result-location {
+            font-size: 18px;
+            opacity: 0.95;
+            margin-bottom: 15px;
+        }
+
+        .result-change {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .result-change.positive {
+            background: rgba(76, 175, 80, 0.3);
+        }
+
+        .result-change.negative {
+            background: rgba(244, 67, 54, 0.3);
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 30px;
+            color: #5f6360;
+            background: #fff3cd;
+            border-radius: 12px;
+            border-left: 4px solid #ffc107;
+            display: none;
+        }
+
+        .no-data.show {
+            display: block;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: #5f6360;
+            display: none;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #5f6360;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .search-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .result-price {
+                font-size: 36px;
+            }
+
+            .widget-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="widget-container">
+        <div class="widget-header">
+            <h2>💰 Quick Price Lookup</h2>
+            <p>Get the latest average housing price for any city and room size</p>
+        </div>
+
+        <div class="search-controls">
+            <div class="form-group">
+                <label for="citySelect">Select City</label>
+                <select id="citySelect">
+                    <option value="">Loading cities...</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="roomSelect">Select Room Size</label>
+                <select id="roomSelect">
+                    <option value="">Loading room sizes...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="loading">
+            <p>⏳ Loading data...</p>
+        </div>
+
+        <div class="result-card" id="resultCard">
+            <div class="result-label" id="resultPeriod">Q4 2024</div>
+            <div class="result-price" id="resultPrice">₪1,234K</div>
+            <div class="result-location" id="resultLocation">Tel Aviv - All Rooms</div>
+            <div class="result-change" id="resultChange">+5.2% YoY</div>
+        </div>
+
+        <div class="no-data" id="noData">
+            <p>⚠️ No data available for this combination. Please try a different selection.</p>
+        </div>
+
+        <div class="footer">
+            <p>Data updated: <span id="lastUpdate">December 2025</span></p>
+            <p>Source: Israeli Housing Market Data</p>
+        </div>
+    </div>
+
+    <script>
+        // This will hold your housing data
+        let housingData = [];
+
+        // Load data from Excel file converted to JSON
+        async function loadData() {
+            try {
+                const loadingEl = document.querySelector('.loading');
+                loadingEl.classList.add('show');
+
+                // Fetch the data from the JSON file
+                const response = await fetch('housing_data.json');
+                
+                if (!response.ok) {
+                    throw new Error('Failed to load data');
+                }
+                
+                housingData = await response.json();
+
+                loadingEl.classList.remove('show');
+                populateDropdowns();
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.querySelector('.loading p').textContent = '❌ Error loading data. Please ensure housing_data.json is available.';
+            }
+        }
+
+        // Populate city and room dropdowns
+        function populateDropdowns() {
+            // Get unique cities (excluding districts)
+            const cities = [...new Set(housingData
+                .filter(item => !item.Is_District)
+                .map(item => item.Area))]
+                .sort();
+
+            // Get unique room types
+            const roomTypes = [...new Set(housingData.map(item => item.Rooms))].sort();
+
+            // Populate city dropdown
+            const citySelect = document.getElementById('citySelect');
+            citySelect.innerHTML = '<option value="">Choose a city...</option>';
+            cities.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city;
+                option.textContent = city;
+                if (city === 'Tel Aviv') option.selected = true;
+                citySelect.appendChild(option);
+            });
+
+            // Populate room dropdown
+            const roomSelect = document.getElementById('roomSelect');
+            roomSelect.innerHTML = '<option value="">Choose room size...</option>';
+            roomTypes.forEach(room => {
+                const option = document.createElement('option');
+                option.value = room;
+                option.textContent = room;
+                if (room === 'All') option.selected = true;
+                roomSelect.appendChild(option);
+            });
+
+            // Update last update date
+            if (housingData.length > 0) {
+                const maxDate = new Date(Math.max(...housingData.map(item => new Date(item.Quarter_ts))));
+                document.getElementById('lastUpdate').textContent = maxDate.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long' 
+                });
+            }
+
+            // Add event listeners
+            citySelect.addEventListener('change', updatePrice);
+            roomSelect.addEventListener('change', updatePrice);
+
+            // Show initial result
+            updatePrice();
+        }
+
+        // Update price display based on selection
+        function updatePrice() {
+            const city = document.getElementById('citySelect').value;
+            const rooms = document.getElementById('roomSelect').value;
+
+            if (!city || !rooms) {
+                document.getElementById('resultCard').classList.remove('show');
+                document.getElementById('noData').classList.remove('show');
+                return;
+            }
+
+            // Get latest quarter
+            const maxQuarter = Math.max(...housingData.map(item => new Date(item.Quarter_ts).getTime()));
+
+            // Filter data for selected city, rooms, and latest quarter
+            const latestData = housingData.filter(item => 
+                item.Area === city && 
+                item.Rooms === rooms && 
+                new Date(item.Quarter_ts).getTime() === maxQuarter
+            );
+
+            if (latestData.length === 0) {
+                document.getElementById('resultCard').classList.remove('show');
+                document.getElementById('noData').classList.add('show');
+                return;
+            }
+
+            const data = latestData[0];
+            const price = data['Average Price'];
+
+            // Calculate YoY change
+            const yearAgo = new Date(maxQuarter);
+            yearAgo.setFullYear(yearAgo.getFullYear() - 1);
+
+            const prevData = housingData.filter(item => 
+                item.Area === city && 
+                item.Rooms === rooms && 
+                Math.abs(new Date(item.Quarter_ts).getTime() - yearAgo.getTime()) < 100 * 24 * 60 * 60 * 1000 // Within 100 days
+            );
+
+            // Update display
+            document.getElementById('resultPeriod').textContent = `${data.Quarter} ${data.Year}`;
+            document.getElementById('resultPrice').textContent = `₪${Math.round(price * 1000).toLocaleString()}K`;
+            document.getElementById('resultLocation').textContent = `${city} - ${rooms}${rooms === 'All' ? ' Rooms' : ''}`;
+
+            const changeEl = document.getElementById('resultChange');
+            if (prevData.length > 0) {
+                const prevPrice = prevData[0]['Average Price'];
+                const change = ((price - prevPrice) / prevPrice) * 100;
+                changeEl.textContent = `${change > 0 ? '+' : ''}${change.toFixed(1)}% YoY`;
+                changeEl.className = 'result-change ' + (change >= 0 ? 'positive' : 'negative');
+            } else {
+                changeEl.textContent = 'No YoY data';
+                changeEl.className = 'result-change';
+            }
+
+            document.getElementById('noData').classList.remove('show');
+            document.getElementById('resultCard').classList.add('show');
+        }
+
+        // Load data when page loads
+        window.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>
