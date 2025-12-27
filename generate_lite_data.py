@@ -1,6 +1,6 @@
 """
-Generate a lightweight version of housing data with only the latest quarter
-and one year ago for YoY comparison
+Generate a lightweight version of housing data with only the latest quarter,
+one year ago, and five years ago for comparison
 """
 import pandas as pd
 import json
@@ -30,11 +30,13 @@ try:
     # Get the latest quarter
     latest_quarter = df['Quarter_ts'].max()
     year_ago = latest_quarter - pd.DateOffset(years=1)
+    five_years_ago = latest_quarter - pd.DateOffset(years=5)
     
-    # Filter for only latest quarter and year ago
+    # Filter for only latest quarter, year ago, and 5 years ago
     df_filtered = df[
         (df['Quarter_ts'] == latest_quarter) | 
-        (df['Quarter_ts'] == year_ago)
+        (df['Quarter_ts'] == year_ago) |
+        (df['Quarter_ts'] == five_years_ago)
     ].copy()
     
     # Select only necessary columns

@@ -161,6 +161,7 @@ html_content = f'''<!DOCTYPE html>
             font-size: 12px;
             font-weight: 500;
             color: #495057;
+            margin-right: 8px;
         }}
 
         .result-change.positive {{
@@ -169,6 +170,25 @@ html_content = f'''<!DOCTYPE html>
         }}
 
         .result-change.negative {{
+            background: #f8d7da;
+            color: #721c24;
+        }}
+
+        .result-change-5y {{
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #495057;
+        }}
+
+        .result-change-5y.positive {{
+            background: #d4edda;
+            color: #155724;
+        }}
+
+        .result-change-5y.negative {{
             background: #f8d7da;
             color: #721c24;
         }}
@@ -186,6 +206,26 @@ html_content = f'''<!DOCTYPE html>
 
         .no-data.show {{
             display: block;
+        }}
+
+        .data-source {{
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+        }}
+
+        .data-source a {{
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }}
+
+        .data-source a:hover {{
+            color: #116DFF;
+            text-decoration: underline;
         }}
 
         @media (max-width: 768px) {{
@@ -240,6 +280,7 @@ html_content = f'''<!DOCTYPE html>
                     <div class="result-price" id="resultPrice">₪4,020,000</div>
                     <div class="result-location" id="resultLocation">Tel Aviv - 4-3.5</div>
                     <div class="result-change" id="resultChange">+5.8% sur 1 an</div>
+                    <div class="result-change-5y" id="resultChange5y">+28.4% sur 5 ans</div>
                 </div>
 
                 <div class="no-data" id="noData">
@@ -247,10 +288,14 @@ html_content = f'''<!DOCTYPE html>
                 </div>
             </div>
         </div>
+
+        <div class="data-source">
+            Source des données : <a href="https://www.gov.il/en/departments/central_bureau_of_statistics/govil-landing-page" target="_blank" rel="noopener noreferrer">Israel: Central Bureau of Statistics (CBS)</a>
+        </div>
     </div>
 
     <script>
-        // Embedded housing data - Latest quarter and year ago for YoY comparison
+        // Embedded housing data - Latest quarter, year ago, and 5 years ago for comparison
         const housingData = {json_data};
 
         // Load data function - now just initializes the dropdowns
@@ -344,6 +389,16 @@ html_content = f'''<!DOCTYPE html>
                 Math.abs(new Date(item.Quarter_ts).getTime() - yearAgo.getTime()) < 100 * 24 * 60 * 60 * 1000 // Within 100 days
             );
 
+            // Calculate 5-year change
+            const fiveYearsAgo = new Date(maxQuarter);
+            fiveYearsAgo.setFullYear(fiveYearsAgo.getFullYear() - 5);
+
+            const prevData5y = housingData.filter(item => 
+                item.Area === city && 
+                item.Rooms === rooms && 
+                Math.abs(new Date(item.Quarter_ts).getTime() - fiveYearsAgo.getTime()) < 100 * 24 * 60 * 60 * 1000 // Within 100 days
+            );
+
             // Update display
             document.getElementById('resultPeriod').textContent = `T${{data.Quarter}} ${{data.Year}}`;
             // Display full price in shekels (data is in millions, multiply by 1,000,000)
@@ -352,6 +407,7 @@ html_content = f'''<!DOCTYPE html>
             const roomsLabel = rooms === 'All' ? 'Tous' : rooms;
             document.getElementById('resultLocation').textContent = `${{city}} - ${{roomsLabel}}`;
 
+            // Update 1-year change
             const changeEl = document.getElementById('resultChange');
             if (prevData.length > 0) {{
                 const prevPrice = prevData[0]['Average Price'];
@@ -361,6 +417,18 @@ html_content = f'''<!DOCTYPE html>
             }} else {{
                 changeEl.textContent = 'Pas de données annuelles';
                 changeEl.className = 'result-change';
+            }}
+
+            // Update 5-year change
+            const change5yEl = document.getElementById('resultChange5y');
+            if (prevData5y.length > 0) {{
+                const prevPrice5y = prevData5y[0]['Average Price'];
+                const change5y = ((price - prevPrice5y) / prevPrice5y) * 100;
+                change5yEl.textContent = `${{change5y > 0 ? '+' : ''}}${{change5y.toFixed(1)}}% sur 5 ans`;
+                change5yEl.className = 'result-change-5y ' + (change5y >= 0 ? 'positive' : 'negative');
+                change5yEl.style.display = 'inline-block';
+            }} else {{
+                change5yEl.style.display = 'none';
             }}
 
             document.getElementById('noData').classList.remove('show');

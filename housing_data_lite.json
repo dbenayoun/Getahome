@@ -2,6 +2,1104 @@
   {
     "Area": "Israel",
     "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.57,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Israel",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.05,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Israel",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.19,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Israel",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.55,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Israel",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.93,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Israel",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.46,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Jerusalem District",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.81,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "Jerusalem District",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.43,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "Jerusalem District",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.44,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "Jerusalem District",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.94,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "Jerusalem District",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.26,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "Jerusalem District",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.48,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "North District",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 0.95,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "North District",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 0.44,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "North District",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 0.66,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "North District",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 0.95,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "North District",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.23,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "North District",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.7,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "Center District",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.83,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "Center District",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.01,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "Center District",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.24,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "Center District",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.77,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "Center District",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.16,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "Center District",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.71,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "South District",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.16,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "South District",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 0.68,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "South District",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 0.85,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "South District",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.17,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "South District",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.5,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "South District",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.83,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": true
+  },
+  {
+    "Area": "Ashdod",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.64,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ashdod",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 0.98,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ashdod",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.25,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ashdod",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.67,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ashdod",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.1,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ashdod",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.36,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ashkelon",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.16,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ashkelon",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 0.67,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ashkelon",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 0.86,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ashkelon",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.15,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ashkelon",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.52,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ashkelon",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.11,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Beer Sheva",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.05,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Beer Sheva",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 0.53,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Beer Sheva",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 0.77,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Beer Sheva",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.09,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Beer Sheva",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.4,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Beer Sheva",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.68,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Beit Shemesh",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.38,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Beit Shemesh",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.12,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Beit Shemesh",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.39,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Beit Shemesh",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.73,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Beit Shemesh",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.82,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Bnei Brak",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.64,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Bnei Brak",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.31,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Bnei Brak",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.48,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Bnei Brak",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.95,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Bnei Brak",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.21,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Bat Yam",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.6,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Bat Yam",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.13,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Bat Yam",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.38,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Bat Yam",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.9,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Bat Yam",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.75,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Holon",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.75,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Holon",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.07,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Holon",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.35,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Holon",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.82,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Holon",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.5,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Holon",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 3.17,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Haifa",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.22,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Haifa",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 0.7,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Haifa",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 0.92,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Haifa",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.37,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Haifa",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.0,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Haifa",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.39,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Jerusalem",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.1,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Jerusalem",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.44,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Jerusalem",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.75,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Jerusalem",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.2,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Jerusalem",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.78,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Jerusalem",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 3.4,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Kfar Saba",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.16,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Kfar Saba",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.59,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Kfar Saba",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.05,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Kfar Saba",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.65,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Kfar Saba",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 3.06,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Netanya",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.72,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Netanya",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 0.99,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Netanya",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.16,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Netanya",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.7,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Netanya",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.1,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Netanya",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.05,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Petah Tiqwa",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.77,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Petah Tiqwa",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.01,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Petah Tiqwa",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.37,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Petah Tiqwa",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.71,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Petah Tiqwa",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.19,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Petah Tiqwa",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.81,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Rishon Lezion",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.87,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Rishon Lezion",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.1,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Rishon Lezion",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.37,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Rishon Lezion",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.83,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Rishon Lezion",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.31,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Rishon Lezion",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.41,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Rehovot",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.88,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Rehovot",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.06,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Rehovot",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.42,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Rehovot",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.76,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Rehovot",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.18,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Rehovot",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 3.05,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ramat Gan",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.12,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ramat Gan",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.21,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ramat Gan",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 1.8,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ramat Gan",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.34,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ramat Gan",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.87,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Ramat Gan",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 3.56,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Tel Aviv",
+    "Rooms": "All",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 3.2,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Tel Aviv",
+    "Rooms": "1-2",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.14,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Tel Aviv",
+    "Rooms": "3-2.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 2.63,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Tel Aviv",
+    "Rooms": "4-3.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 3.68,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Tel Aviv",
+    "Rooms": "5-4.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 4.98,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Tel Aviv",
+    "Rooms": "6-5.5",
+    "Year": 2020,
+    "Quarter": "3Q",
+    "Average Price": 7.0,
+    "Quarter_ts": "2020-07-01",
+    "Is_District": false
+  },
+  {
+    "Area": "Israel",
+    "Rooms": "All",
     "Year": 2024,
     "Quarter": "3Q",
     "Average Price": 2.27,
