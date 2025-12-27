@@ -129,28 +129,6 @@
             font-size: 12px;
         }
 
-        .calculate-btn {
-            width: 100%;
-            padding: 12px;
-            background: #116DFF;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 16px;
-            transition: background 0.2s;
-        }
-
-        .calculate-btn:hover {
-            background: #0d5cd9;
-        }
-
-        .calculate-btn:active {
-            transform: scale(0.98);
-        }
-
         .result-card {
             background: #f8f9fa;
             border: 1px solid #e9ecef;
@@ -314,8 +292,6 @@
                     <input type="checkbox" id="avecCourtier" checked>
                     <label for="avecCourtier">Courtier (1%)</label>
                 </div>
-
-                <button class="calculate-btn" onclick="calculate()">Calculer</button>
             </div>
 
             <!-- Résultats à droite -->
@@ -608,8 +584,8 @@
                 document.getElementById('rowDossier').style.display = result.montantPret > 0 ? 'flex' : 'none';
                 document.getElementById('rowHypotheque').style.display = result.montantPret > 0 ? 'flex' : 'none';
 
-                // Badge Olé
-                if (result.comparaisonOle && result.comparaisonOle.economie > 0) {
+                // Badge Olé - afficher uniquement si l'utilisateur EST Olé Hadach
+                if (isOle && result.comparaisonOle && result.comparaisonOle.economie > 0) {
                     document.getElementById('oleBadge').style.display = 'block';
                     document.getElementById('oleEconomie').textContent = 
                         formatCurrency(result.comparaisonOle.economie);
