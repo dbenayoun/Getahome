@@ -233,6 +233,63 @@
                 font-size: 28px;
             }
         }
+
+        /* Tooltip styles */
+        .tooltip-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip-icon {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            background-color: #999;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 14px;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: help;
+            margin-left: 4px;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 220px;
+            background-color: #333;
+            color: #fff;
+            text-align: left;
+            border-radius: 4px;
+            padding: 8px 10px;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 11px;
+            line-height: 1.4;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip-wrapper:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -247,14 +304,15 @@
             <div class="input-section">
                 <div class="form-group">
                     <label for="prixAchat">Prix d'achat (₪)</label>
-                    <input type="text" id="prixAchat" value="4,020,000" placeholder="4,000,000">
+                    <input type="text" id="prixAchat" value="4 020 000" placeholder="4 000 000">
                 </div>
 
                 <div class="form-group">
                     <label for="typeAchat">Type d'achat</label>
                     <select id="typeAchat">
-                        <option value="residence">Résidence principale</option>
-                        <option value="investissement">Investissement</option>
+                        <option value="residence">Premier ou seul bien</option>
+                        <option value="revente">Je vends pour acheter plus grand</option>
+                        <option value="investissement">2ème bien ou plus</option>
                     </select>
                 </div>
 
@@ -269,18 +327,23 @@
                 <div class="form-group">
                     <label for="apport">Apport (%)</label>
                     <select id="apport">
-                        <option value="0.20">20%</option>
-                        <option value="0.25">25%</option>
-                        <option value="0.30" selected>30%</option>
+                        <option value="0.25" selected>25%</option>
+                        <option value="0.30">30%</option>
                         <option value="0.35">35%</option>
                         <option value="0.40">40%</option>
                         <option value="0.50">50%</option>
+                        <option value="0.75">75%</option>
+                        <option value="1.00">100%</option>
                     </select>
                 </div>
 
                 <div class="checkbox-group">
                     <input type="checkbox" id="isOle">
                     <label for="isOle">Olé Hadach</label>
+                    <div class="tooltip-wrapper">
+                        <span class="tooltip-icon">?</span>
+                        <span class="tooltip-text" id="oleTooltip">Avantage réservé à la résidence principale uniquement (non applicable pour investissement)</span>
+                    </div>
                 </div>
 
                 <div class="checkbox-group">
@@ -398,8 +461,39 @@
                 [5872725, Infinity, 0.10]
             ];
 
+            static getMinimumApport(typeAchat) {
+                if (typeAchat === 'investissement') {
+                    return 0.50;
+                } else if (typeAchat === 'revente') {
+                    return 0.30;
+                } else {
+                    return 0.25;
+                }
+            }
+
+            static validateApport(apportPourcent, typeAchat) {
+                const minApport = this.getMinimumApport(typeAchat);
+                if (apportPourcent < minApport) {
+                    const minPourcent = Math.round(minApport * 100);
+                    let typeLabel;
+                    if (typeAchat === 'investissement') {
+                        typeLabel = '2ème bien ou plus';
+                    } else if (typeAchat === 'revente') {
+                        typeLabel = 'revente pour achat plus grand';
+                    } else {
+                        typeLabel = 'premier ou seul bien';
+                    }
+                    return {
+                        isValid: false,
+                        message: `Apport minimum de ${minPourcent}% requis pour un ${typeLabel}`
+                    };
+                }
+                return { isValid: true, message: '' };
+            }
+
             static calculateMasRechisha(prixAchat, typeAchat, isOleHadach) {
                 let grille;
+                // Pour le calcul de la taxe, 'revente' est traité comme 'residence'
                 if (typeAchat === 'investissement') {
                     grille = this.GRILLE_INVESTISSEMENT;
                 } else if (isOleHadach) {
@@ -456,6 +550,13 @@
 
             static calculateAllFees(prixAchat, typeAchat, isOleHadach, apportPourcent, 
                                    avecAgent, achatNeuf, avecCourtier, avecTraductions) {
+                // Validation de l'apport
+                const validation = this.validateApport(apportPourcent, typeAchat);
+                if (!validation.isValid) {
+                    // Ajuster automatiquement au minimum légal
+                    apportPourcent = this.getMinimumApport(typeAchat);
+                }
+
                 let montantPret = prixAchat * (1 - apportPourcent);
                 let apport = prixAchat * apportPourcent;
 
@@ -477,7 +578,7 @@
                 let cashNecessaire = apport + totalFrais;
 
                 let comparaisonOle = null;
-                if (typeAchat === 'residence') {
+                if (typeAchat === 'residence' || typeAchat === 'revente') {
                     let masNonOle = this.calculateMasRechisha(prixAchat, 'residence', false);
                     let masOle = this.calculateMasRechisha(prixAchat, 'residence', true);
                     comparaisonOle = {
@@ -495,6 +596,7 @@
                     apport: apport,
                     apportPourcent: apportPourcent * 100,
                     montantPret: montantPret,
+                    validationApport: validation,
                     fraisDetail: {
                         masRechisha: masRechisha,
                         agent: fraisAgent,
@@ -522,13 +624,34 @@
         function formatNumberInput(value) {
             // Remove all non-digit characters
             const number = value.replace(/\D/g, '');
-            // Format with thousands separator
-            return number.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            // Format with space as thousands separator
+            return number.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
         }
 
         function parseFormattedNumber(value) {
-            // Remove commas and parse as float
-            return parseFloat(value.replace(/,/g, '')) || 0;
+            // Remove spaces and parse as float
+            return parseFloat(value.replace(/\s/g, '')) || 0;
+        }
+
+        function updateApportOptions(typeAchat) {
+            const apportSelect = document.getElementById('apport');
+            const minApport = BudgetSimulator.getMinimumApport(typeAchat);
+            
+            // Réactiver toutes les options d'abord
+            Array.from(apportSelect.options).forEach(option => {
+                const optionValue = parseFloat(option.value);
+                if (optionValue < minApport) {
+                    option.disabled = true;
+                    option.style.color = '#ccc';
+                } else {
+                    option.disabled = false;
+                    option.style.color = '';
+                }
+            });
+            
+            // Toujours sélectionner le minimum apport pour la situation
+            // Formater avec 2 décimales pour correspondre aux options
+            apportSelect.value = minApport.toFixed(2);
         }
 
         function calculate() {
@@ -603,10 +726,16 @@
         // Désactiver la case Olé si investissement
         document.getElementById('typeAchat').addEventListener('change', function() {
             const isInvest = this.value === 'investissement';
+            
+            // Désactiver Olé pour investissement
             document.getElementById('isOle').disabled = isInvest;
             if (isInvest) {
                 document.getElementById('isOle').checked = false;
             }
+            
+            // Mettre à jour les options d'apport
+            updateApportOptions(this.value);
+            
             calculate();
         });
 
@@ -634,8 +763,11 @@
         document.getElementById('avecAgent').addEventListener('change', calculate);
         document.getElementById('avecCourtier').addEventListener('change', calculate);
 
-        // Calculer automatiquement au chargement
-        window.addEventListener('DOMContentLoaded', calculate);
+        // Initialiser au chargement
+        window.addEventListener('DOMContentLoaded', function() {
+            updateApportOptions(document.getElementById('typeAchat').value);
+            calculate();
+        });
     </script>
 </body>
 </html>

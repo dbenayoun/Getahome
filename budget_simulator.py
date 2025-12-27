@@ -48,13 +48,14 @@ class BudgetSimulator:
         
         Args:
             prix_achat (float): Prix d'achat en ILS
-            type_achat (str): 'residence' ou 'investissement'
-            is_ole_hadach (bool): Statut Olé Hadach (seulement si type_achat='residence')
+            type_achat (str): 'residence', 'revente' ou 'investissement'
+            is_ole_hadach (bool): Statut Olé Hadach (seulement si type_achat='residence' ou 'revente')
             
         Returns:
             float: Montant de la taxe d'acquisition
         """
         # Sélection de la grille appropriée
+        # Pour la taxe, 'revente' est traité comme 'residence'
         if type_achat == 'investissement':
             grille = BudgetSimulator.GRILLE_INVESTISSEMENT
         elif is_ole_hadach:
@@ -224,6 +225,50 @@ class BudgetSimulator:
         return montant_transfert * taux_fx
     
     @staticmethod
+    def get_minimum_apport(type_achat='residence'):
+        """
+        Retourne l'apport minimum légal selon le type d'achat.
+        
+        Args:
+            type_achat (str): 'residence', 'revente' ou 'investissement'
+            
+        Returns:
+            float: Pourcentage d'apport minimum (ex: 0.25 pour 25%)
+        """
+        if type_achat == 'investissement':
+            return 0.50  # 50% minimum pour 2ème bien ou plus
+        elif type_achat == 'revente':
+            return 0.30  # 30% minimum si vend pour racheter plus grand
+        else:
+            return 0.25  # 25% minimum pour premier ou seul bien
+    
+    @staticmethod
+    def validate_apport(apport_pourcent, type_achat='residence'):
+        """
+        Valide que l'apport respecte les contraintes légales.
+        
+        Args:
+            apport_pourcent (float): Pourcentage d'apport proposé
+            type_achat (str): 'residence', 'revente' ou 'investissement'
+            
+        Returns:
+            tuple: (bool, str) - (is_valid, message_erreur)
+        """
+        min_apport = BudgetSimulator.get_minimum_apport(type_achat)
+        
+        if apport_pourcent < min_apport:
+            min_pourcent = int(min_apport * 100)
+            if type_achat == 'investissement':
+                type_label = "2ème bien ou plus"
+            elif type_achat == 'revente':
+                type_label = "revente pour achat plus grand"
+            else:
+                type_label = "résidence principale"
+            return False, f"Apport minimum de {min_pourcent}% requis pour un {type_label}"
+        
+        return True, ""
+    
+    @staticmethod
     def calculate_all_fees(prix_achat,
                           type_achat='residence',
                           is_ole_hadach=False,
@@ -254,6 +299,12 @@ class BudgetSimulator:
         Returns:
             dict: Dictionnaire complet avec tous les calculs
         """
+        # Validation de l'apport
+        is_valid, error_msg = BudgetSimulator.validate_apport(apport_pourcent, type_achat)
+        if not is_valid:
+            # Ajuster automatiquement au minimum légal
+            apport_pourcent = BudgetSimulator.get_minimum_apport(type_achat)
+        
         # Calcul du prêt et de l'apport
         montant_pret = prix_achat * (1 - apport_pourcent)
         apport = prix_achat * apport_pourcent
@@ -291,9 +342,9 @@ class BudgetSimulator:
         budget_total = prix_achat + total_frais
         cash_necessaire = apport + total_frais
         
-        # Comparaison Olé Hadach (seulement si résidence principale)
+        # Comparaison Olé Hadach (seulement si résidence principale ou revente)
         comparaison_ole = None
-        if type_achat == 'residence':
+        if type_achat in ['residence', 'revente']:
             mas_non_ole = BudgetSimulator.calculate_mas_rechisha(
                 prix_achat, 'residence', False
             )
