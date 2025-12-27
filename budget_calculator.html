@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulateur de Budget Total - Achat Immobilier en Israël</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .calculator-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .calculator-header {
+            background: linear-gradient(135deg, #116DFF 0%, #0D5DD6 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .calculator-header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .calculator-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .calculator-content {
+            padding: 30px;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #116DFF;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        input[type="number"],
+        select {
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #116DFF;
+            box-shadow: 0 0 0 3px rgba(17, 109, 255, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .calculate-button {
+            width: 100%;
+            padding: 16px;
+            background: #116DFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .calculate-button:hover {
+            background: #0D5DD6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(17, 109, 255, 0.3);
+        }
+
+        .calculate-button:active {
+            transform: translateY(0);
+        }
+
+        .results {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .result-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .result-main {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #116DFF 0%, #0D5DD6 100%);
+            color: white;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .result-main h2 {
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-main .amount {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .result-main .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .result-row.total {
+            font-weight: 600;
+            font-size: 16px;
+            background: #e7f3ff;
+            margin: 10px -25px -25px -25px;
+            padding: 15px 25px;
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: #495057;
+        }
+
+        .result-value {
+            font-weight: 600;
+            color: #000;
+        }
+
+        .ole-comparison {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .ole-comparison h3 {
+            color: #155724;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .savings {
+            font-size: 24px;
+            font-weight: 700;
+            color: #155724;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .disclaimer {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-content {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-main .amount {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="calculator-header">
+            <h1>💰 Simulateur de Budget Total</h1>
+            <p>Achat Immobilier en Israël - Estimation complète des frais</p>
+        </div>
+
+        <div class="calculator-content">
+            <!-- Formulaire -->
+            <div class="form-section">
+                <div class="section-title">📋 Informations de base</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="prixAchat">Prix d'achat (₪)</label>
+                        <input type="number" id="prixAchat" value="4020000" min="0" step="10000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="typeAchat">Type d'achat</label>
+                        <select id="typeAchat">
+                            <option value="residence">Résidence principale</option>
+                            <option value="investissement">Investissement / 2e bien</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="etatBien">État du bien</label>
+                        <select id="etatBien">
+                            <option value="ancien">Ancien (particulier)</option>
+                            <option value="neuf">Neuf (promoteur)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="isOle">
+                    <label for="isOle">Je suis Olé Hadach (achat dans les 7 ans suivant l'Alyah)</label>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">💳 Financement</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="apport">Apport personnel (%)</label>
+                        <select id="apport">
+                            <option value="0.20">20%</option>
+                            <option value="0.25">25%</option>
+                            <option value="0.30" selected>30%</option>
+                            <option value="0.35">35%</option>
+                            <option value="0.40">40%</option>
+                            <option value="0.50">50%</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">🤝 Intermédiaires</div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="avecAgent" checked>
+                    <label for="avecAgent">Agent immobilier (2% TTC)</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="avecCourtier" checked>
+                    <label for="avecCourtier">Courtier en crédit (1% TTC du prêt)</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="avecTraductions" checked>
+                    <label for="avecTraductions">Traductions / Notaire (500 ₪)</label>
+                </div>
+            </div>
+
+            <button class="calculate-button" onclick="calculate()">
+                📊 Calculer le budget total
+            </button>
+
+            <!-- Résultats -->
+            <div id="results" class="results">
+                <div class="result-main">
+                    <h2>Cash Nécessaire</h2>
+                    <div class="amount" id="cashTotal">₪0</div>
+                    <div class="subtitle">Apport + Frais totaux</div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-row">
+                        <span class="result-label">Prix d'achat</span>
+                        <span class="result-value" id="resPrixAchat">₪0</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Type de bien</span>
+                        <span class="result-value" id="resTypeBien">-</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">État du bien</span>
+                        <span class="result-value" id="resEtatBien">-</span>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div class="section-title" style="margin-bottom: 15px;">💰 Financement</div>
+                    <div class="result-row">
+                        <span class="result-label">Apport personnel</span>
+                        <span class="result-value" id="resApport">₪0</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Montant du prêt</span>
+                        <span class="result-value" id="resPret">₪0</span>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div class="section-title" style="margin-bottom: 15px;">📋 Détail des frais</div>
+                    <div class="result-row">
+                        <span class="result-label">Taxe d'acquisition (Mas Rechisha)</span>
+                        <span class="result-value" id="resMasRechisha">₪0</span>
+                    </div>
+                    <div class="result-row" id="rowAgent">
+                        <span class="result-label">Agent immobilier (2% TTC)</span>
+                        <span class="result-value" id="resAgent">₪0</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Avocat</span>
+                        <span class="result-value" id="resAvocat">₪0</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Shammai (expert)</span>
+                        <span class="result-value" id="resShammai">₪3,500</span>
+                    </div>
+                    <div class="result-row" id="rowCourtier">
+                        <span class="result-label">Courtier crédit (1% TTC)</span>
+                        <span class="result-value" id="resCourtier">₪0</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Cadastre / Enregistrement</span>
+                        <span class="result-value" id="resCadastre">₪1,500</span>
+                    </div>
+                    <div class="result-row" id="rowDossier">
+                        <span class="result-label">Frais dossier bancaire</span>
+                        <span class="result-value" id="resDossier">₪0</span>
+                    </div>
+                    <div class="result-row" id="rowHypotheque">
+                        <span class="result-label">Enregistrement hypothèque</span>
+                        <span class="result-value" id="resHypotheque">₪1,500</span>
+                    </div>
+                    <div class="result-row" id="rowTraductions">
+                        <span class="result-label">Traductions / Notaire</span>
+                        <span class="result-value" id="resTraductions">₪500</span>
+                    </div>
+                    <div class="result-row total">
+                        <span class="result-label">TOTAL DES FRAIS</span>
+                        <span class="result-value" id="resTotalFrais">₪0</span>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-row">
+                        <span class="result-label">💵 BUDGET TOTAL DU PROJET</span>
+                        <span class="result-value" id="resBudgetTotal" style="font-size: 18px; color: #116DFF;">₪0</span>
+                    </div>
+                </div>
+
+                <div id="oleComparison" class="ole-comparison" style="display: none;">
+                    <h3>🎯 Comparaison Olé Hadach</h3>
+                    <div class="result-row" style="border: none; padding: 8px 0;">
+                        <span>Sans statut Olé:</span>
+                        <span id="oleNon">₪0</span>
+                    </div>
+                    <div class="result-row" style="border: none; padding: 8px 0;">
+                        <span>Avec statut Olé:</span>
+                        <span id="oleOui">₪0</span>
+                    </div>
+                    <div class="savings">
+                        💡 Économie: <span id="oleEconomie">₪0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="disclaimer">
+                ⚠️ Cette estimation est indicative et ne remplace pas un conseil juridique ou fiscal personnalisé.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Budget Simulator - Version JavaScript
+        class BudgetSimulator {
+            static TVA = 0.18;
+
+            static GRILLE_RESIDENCE_NON_OLE = [
+                [0, 1919155, 0.00],
+                [1919155, 2276360, 0.035],
+                [2276360, 5872725, 0.05],
+                [5872725, 19575755, 0.08],
+                [19575755, Infinity, 0.10]
+            ];
+
+            static GRILLE_RESIDENCE_OLE = [
+                [0, 1978745, 0.00],
+                [1978745, 5872725, 0.005],
+                [5872725, 19575755, 0.05],
+                [19575755, Infinity, 0.08]
+            ];
+
+            static GRILLE_INVESTISSEMENT = [
+                [0, 5872725, 0.08],
+                [5872725, Infinity, 0.10]
+            ];
+
+            static calculateMasRechisha(prixAchat, typeAchat, isOleHadach) {
+                let grille;
+                if (typeAchat === 'investissement') {
+                    grille = this.GRILLE_INVESTISSEMENT;
+                } else if (isOleHadach) {
+                    grille = this.GRILLE_RESIDENCE_OLE;
+                } else {
+                    grille = this.GRILLE_RESIDENCE_NON_OLE;
+                }
+
+                let totalTax = 0;
+                for (let [min, max, taux] of grille) {
+                    if (prixAchat <= min) break;
+                    let montantTranche = Math.min(prixAchat, max) - min;
+                    if (montantTranche > 0) {
+                        totalTax += montantTranche * taux;
+                    }
+                }
+                return totalTax;
+            }
+
+            static calculateAgentFee(prixAchat, avecAgent) {
+                if (!avecAgent) return 0;
+                let commissionHT = prixAchat * 0.02;
+                return commissionHT * (1 + this.TVA);
+            }
+
+            static calculateLawyerFee(prixAchat, achatNeuf) {
+                let avocatHT = prixAchat * 0.01;
+                let avocatTTC = avocatHT * (1 + this.TVA);
+
+                if (achatNeuf) {
+                    let avocatKablanHT = prixAchat * 0.005;
+                    let avocatKablanTTC = avocatKablanHT * (1 + this.TVA);
+                    return avocatTTC + avocatKablanTTC;
+                }
+
+                return avocatTTC;
+            }
+
+            static calculateBrokerFee(montantPret, avecCourtier) {
+                if (!avecCourtier || montantPret === 0) return 0;
+                let commissionHT = montantPret * 0.01;
+                return commissionHT * (1 + this.TVA);
+            }
+
+            static calculateBankDossierFee(montantPret) {
+                if (montantPret === 0) return 0;
+                return montantPret * 0.0035;
+            }
+
+            static calculateHypothequeFee(montantPret) {
+                if (montantPret === 0) return 0;
+                return 1500;
+            }
+
+            static calculateAllFees(prixAchat, typeAchat, isOleHadach, apportPourcent, 
+                                   avecAgent, achatNeuf, avecCourtier, avecTraductions) {
+                let montantPret = prixAchat * (1 - apportPourcent);
+                let apport = prixAchat * apportPourcent;
+
+                let masRechisha = this.calculateMasRechisha(prixAchat, typeAchat, isOleHadach);
+                let fraisAgent = this.calculateAgentFee(prixAchat, avecAgent);
+                let fraisAvocat = this.calculateLawyerFee(prixAchat, achatNeuf);
+                let fraisShammai = 3500;
+                let fraisCourtier = this.calculateBrokerFee(montantPret, avecCourtier);
+                let fraisCadastre = 1500;
+                let fraisDossier = this.calculateBankDossierFee(montantPret);
+                let fraisHypotheque = this.calculateHypothequeFee(montantPret);
+                let fraisTraductions = avecTraductions ? 500 : 0;
+
+                let totalFrais = masRechisha + fraisAgent + fraisAvocat + fraisShammai + 
+                                fraisCourtier + fraisCadastre + fraisDossier + 
+                                fraisHypotheque + fraisTraductions;
+
+                let budgetTotal = prixAchat + totalFrais;
+                let cashNecessaire = apport + totalFrais;
+
+                let comparaisonOle = null;
+                if (typeAchat === 'residence') {
+                    let masNonOle = this.calculateMasRechisha(prixAchat, 'residence', false);
+                    let masOle = this.calculateMasRechisha(prixAchat, 'residence', true);
+                    comparaisonOle = {
+                        masNonOle: masNonOle,
+                        masOle: masOle,
+                        economie: masNonOle - masOle
+                    };
+                }
+
+                return {
+                    prixAchat: prixAchat,
+                    typeAchat: typeAchat,
+                    achatNeuf: achatNeuf,
+                    isOleHadach: isOleHadach,
+                    apport: apport,
+                    apportPourcent: apportPourcent * 100,
+                    montantPret: montantPret,
+                    fraisDetail: {
+                        masRechisha: masRechisha,
+                        agent: fraisAgent,
+                        avocat: fraisAvocat,
+                        shammai: fraisShammai,
+                        courtier: fraisCourtier,
+                        cadastre: fraisCadastre,
+                        dossierBanque: fraisDossier,
+                        hypotheque: fraisHypotheque,
+                        traductions: fraisTraductions
+                    },
+                    totalFrais: totalFrais,
+                    fraisPourcent: (totalFrais / prixAchat) * 100,
+                    budgetTotal: budgetTotal,
+                    cashNecessaire: cashNecessaire,
+                    comparaisonOle: comparaisonOle
+                };
+            }
+        }
+
+        function formatCurrency(amount) {
+            return '₪' + Math.round(amount).toLocaleString('fr-FR');
+        }
+
+        function calculate() {
+            // Récupérer les valeurs
+            const prixAchat = parseFloat(document.getElementById('prixAchat').value);
+            const typeAchat = document.getElementById('typeAchat').value;
+            const etatBien = document.getElementById('etatBien').value;
+            const isOle = document.getElementById('isOle').checked;
+            const apport = parseFloat(document.getElementById('apport').value);
+            const avecAgent = document.getElementById('avecAgent').checked;
+            const avecCourtier = document.getElementById('avecCourtier').checked;
+            const avecTraductions = document.getElementById('avecTraductions').checked;
+
+            const achatNeuf = etatBien === 'neuf';
+
+            // Calculer
+            const result = BudgetSimulator.calculateAllFees(
+                prixAchat, typeAchat, isOle, apport,
+                avecAgent, achatNeuf, avecCourtier, avecTraductions
+            );
+
+            // Afficher les résultats
+            document.getElementById('cashTotal').textContent = formatCurrency(result.cashNecessaire);
+            document.getElementById('resPrixAchat').textContent = formatCurrency(result.prixAchat);
+            
+            const typeBienText = typeAchat === 'residence' ? 'Résidence principale' : 'Investissement';
+            document.getElementById('resTypeBien').textContent = typeBienText;
+            
+            const etatBienText = achatNeuf ? 'Neuf (promoteur)' : 'Ancien (particulier)';
+            document.getElementById('resEtatBien').textContent = etatBienText;
+
+            document.getElementById('resApport').textContent = 
+                `${formatCurrency(result.apport)} (${result.apportPourcent.toFixed(0)}%)`;
+            document.getElementById('resPret').textContent = formatCurrency(result.montantPret);
+
+            document.getElementById('resMasRechisha').textContent = 
+                formatCurrency(result.fraisDetail.masRechisha);
+            document.getElementById('resAgent').textContent = 
+                formatCurrency(result.fraisDetail.agent);
+            document.getElementById('resAvocat').textContent = 
+                formatCurrency(result.fraisDetail.avocat);
+            document.getElementById('resCourtier').textContent = 
+                formatCurrency(result.fraisDetail.courtier);
+            document.getElementById('resDossier').textContent = 
+                formatCurrency(result.fraisDetail.dossierBanque);
+            document.getElementById('resHypotheque').textContent = 
+                formatCurrency(result.fraisDetail.hypotheque);
+            document.getElementById('resTraductions').textContent = 
+                formatCurrency(result.fraisDetail.traductions);
+
+            // Masquer/afficher les lignes selon les options
+            document.getElementById('rowAgent').style.display = avecAgent ? 'flex' : 'none';
+            document.getElementById('rowCourtier').style.display = avecCourtier ? 'flex' : 'none';
+            document.getElementById('rowDossier').style.display = result.montantPret > 0 ? 'flex' : 'none';
+            document.getElementById('rowHypotheque').style.display = result.montantPret > 0 ? 'flex' : 'none';
+            document.getElementById('rowTraductions').style.display = avecTraductions ? 'flex' : 'none';
+
+            document.getElementById('resTotalFrais').textContent = 
+                `${formatCurrency(result.totalFrais)} (${result.fraisPourcent.toFixed(1)}%)`;
+            document.getElementById('resBudgetTotal').textContent = 
+                formatCurrency(result.budgetTotal);
+
+            // Comparaison Olé
+            if (result.comparaisonOle) {
+                document.getElementById('oleComparison').style.display = 'block';
+                document.getElementById('oleNon').textContent = 
+                    formatCurrency(result.comparaisonOle.masNonOle);
+                document.getElementById('oleOui').textContent = 
+                    formatCurrency(result.comparaisonOle.masOle);
+                document.getElementById('oleEconomie').textContent = 
+                    formatCurrency(result.comparaisonOle.economie);
+            } else {
+                document.getElementById('oleComparison').style.display = 'none';
+            }
+
+            // Afficher les résultats
+            document.getElementById('results').classList.add('show');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Désactiver la case Olé si investissement
+        document.getElementById('typeAchat').addEventListener('change', function() {
+            const isInvest = this.value === 'investissement';
+            document.getElementById('isOle').disabled = isInvest;
+            if (isInvest) {
+                document.getElementById('isOle').checked = false;
+            }
+        });
+
+        // Calculer automatiquement au chargement
+        window.addEventListener('DOMContentLoaded', function() {
+            calculate();
+        });
+    </script>
+</body>
+</html>
