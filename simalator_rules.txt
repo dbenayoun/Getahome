@@ -1,0 +1,293 @@
+SIMULATEUR DE BUDGET TOTAL – ACHAT IMMOBILIER EN ISRAËL
+====================================================
+
+Objectif
+--------
+Créer un simulateur permettant d’estimer le BUDGET TOTAL nécessaire pour l’achat
+d’un appartement en Israël, incluant l’ensemble des frais obligatoires et optionnels.
+
+Le simulateur doit fonctionner à partir :
+- de la ville
+- du nombre de pièces
+- du prix d’achat estimé
+- du statut fiscal de l’acheteur
+- du statut Olé Hadach (oui / non)
+- du recours ou non à des intermédiaires
+- du financement bancaire
+- d’une conversion optionnelle en euros
+
+Sorties attendues :
+1) Prix d’achat estimé
+2) Détail complet des frais
+3) Total des frais annexes
+4) Budget total du projet
+5) Cash réellement nécessaire
+6) Comparaison Olé Hadach / non Olé
+7) Affichage en ILS et EUR
+
+
+------------------------------------------------
+I. INPUTS PRINCIPAUX
+------------------------------------------------
+
+1. Ville
+   - Liste déroulante
+   - Chaque ville est associée à un prix moyen par nombre de pièces
+
+2. Nombre de pièces
+   - Champ numérique (2 / 3 / 4 / 5)
+
+3. Prix d’achat estimé
+   - Calcul automatique :
+     Prix_achat = Prix_moyen_ville × Coefficient_nombre_pieces
+   - Champ modifiable manuellement
+
+4. Profil de l’acheteur
+   - Résidence principale (dira yehida)
+   - Investissement / résidence secondaire
+
+5. Statut Olé Hadach
+   - Oui / Non
+   - Achat dans les 7 ans suivant l’Alyah
+   - Avantage utilisable UNE SEULE FOIS
+   - Impact UNIQUEMENT sur la taxe d’acquisition
+
+6. Achat avec financement bancaire
+   - Oui / Non
+
+7. Apport personnel (%)
+   - Exemple : 25 %, 30 %, 40 %
+
+8. Montant du prêt
+   - Calcul :
+     Montant_pret = Prix_achat × (1 - Apport_%)
+
+
+------------------------------------------------
+II. TAXE D’ACQUISITION – MAS RECHISHA
+------------------------------------------------
+
+Principe fondamental
+--------------------
+La taxe d’acquisition est progressive par TRANCHES.
+Chaque tranche du prix est taxée à un taux différent.
+Le taux maximal ne s’applique JAMAIS à l’intégralité du prix.
+
+Formule générale :
+Mas_Rechisha = Σ (Montant_tranche × Taux_tranche)
+
+
+------------------------------------------------
+A. RÉSIDENCE PRINCIPALE – NON OLÉ
+------------------------------------------------
+
+Paliers indicatifs (à mettre à jour annuellement) :
+
+Tranche 1 : 0 → 1 919 155 ₪       → 0 %
+Tranche 2 : 1 919 155 → 2 276 360 ₪ → 3,5 %
+Tranche 3 : 2 276 360 → 5 872 725 ₪ → 5 %
+Tranche 4 : 5 872 725 → 19 575 755 ₪ → 8 %
+Tranche 5 : au-delà                → 10 %
+
+Calcul :
+- Appliquer chaque taux UNIQUEMENT sur la tranche correspondante
+- Additionner les montants
+
+
+------------------------------------------------
+B. RÉSIDENCE PRINCIPALE – OLÉ HADACH
+------------------------------------------------
+
+Conditions :
+- Achat dans les 7 ans suivant l’Alyah
+- Bien destiné à être habité
+- Avantage applicable UNE SEULE FOIS
+
+Paliers Olé Hadach (indicatifs) :
+
+Tranche 1 : 0 → 1 978 745 ₪        → 0 %
+Tranche 2 : 1 978 745 → 5 872 725 ₪ → 0,5 %
+Tranche 3 : 5 872 725 → 19 575 755 ₪ → 5 %
+Tranche 4 : au-delà                → 8 %
+
+Résultat :
+- Économie potentielle de dizaines à centaines de milliers de ₪
+- Impact MAJEUR sur le budget total
+
+
+------------------------------------------------
+C. INVESTISSEMENT / 2e BIEN
+------------------------------------------------
+
+- Pas de tranche à 0 %
+- Taxe dès le premier shekel
+
+Taux indicatif :
+- 8 % jusqu’à un certain plafond
+- 10 % au-delà
+
+Calcul :
+Mas_Rechisha = Prix_achat × Taux_effectif
+
+
+------------------------------------------------
+III. AUTRES FRAIS (calculés sur le prix d’achat)
+------------------------------------------------
+
+TVA EN VIGUEUR : 18 %
+
+
+1. Agent immobilier (optionnel)
+-------------------------------
+Commission HT : 2 %
+
+Agent_HT = Prix_achat × 0.02
+Agent_TTC = Agent_HT × 1.18
+
+
+2. Avocat acheteur
+------------------
+Commission HT : 1 %
+
+Avocat_HT = Prix_achat × 0.01
+Avocat_TTC = Avocat_HT × 1.18
+
+Option achat neuf (kablan) :
+- Avocat promoteur : 0,5 % HT
+
+Avocat_Kablan_HT = Prix_achat × 0.005
+Avocat_Kablan_TTC = Avocat_Kablan_HT × 1.18
+
+
+3. Shammai (expert immobilier)
+------------------------------
+Forfait recommandé :
+Shammai = 3 500 ₪
+(Champ modifiable)
+
+
+4. Courtier en crédit (optionnel)
+--------------------------------
+Commission HT : 1 % du montant du prêt
+
+Courtier_HT = Montant_pret × 0.01
+Courtier_TTC = Courtier_HT × 1.18
+
+
+5. Frais cadastre / enregistrement
+----------------------------------
+Inclut :
+- Tabu / Minhal / Hevra Meshaken
+- Aharat Azharah
+
+Forfait :
+Cadastre = 1 500 ₪
+
+
+------------------------------------------------
+IV. FRAIS LIÉS AU FINANCEMENT
+------------------------------------------------
+
+Uniquement si prêt = OUI
+
+
+1. Frais de dossier bancaire
+----------------------------
+Taux moyen :
+0,35 % du montant du prêt
+
+Frais_dossier = Montant_pret × 0.0035
+
+
+2. Enregistrement de l’hypothèque
+---------------------------------
+Enregistrement_banque = 1 500 ₪
+
+
+3. Assurances (non incluses dans le total)
+------------------------------------------
+- Assurance vie
+- Assurance structure
+
+Estimation indicative :
+150 à 350 ₪ / mois
+
+
+------------------------------------------------
+V. AUTRES FRAIS OPTIONNELS
+------------------------------------------------
+
+1. Traductions / notaire / procuration
+-------------------------------------
+Forfait :
+500 ₪
+
+
+2. Frais de change / transferts internationaux
+----------------------------------------------
+Optionnel – si fonds provenant de l’étranger
+
+Frais_FX = Montant_transfere × 0.005
+(0,5 % indicatif)
+
+
+------------------------------------------------
+VI. CONVERSION EN EUROS
+------------------------------------------------
+
+- Taux EUR/ILS = moyenne des 3 derniers mois
+- Champ visible et modifiable
+
+Montant_EUR = Montant_ILS / Taux_EUR_ILS
+
+
+------------------------------------------------
+VII. RÉSULTATS FINAUX
+------------------------------------------------
+
+1. Total des frais annexes
+-------------------------
+Total_frais =
+Mas_Rechisha
++ Agent_TTC
++ Avocat_TTC
++ Avocat_Kablan_TTC
++ Shammai
++ Courtier_TTC
++ Cadastre
++ Frais_dossier
++ Enregistrement_banque
++ Traductions
++ Frais_FX
+
+
+2. Budget total du projet
+------------------------
+Budget_total = Prix_achat + Total_frais
+
+
+3. Cash réellement nécessaire
+-----------------------------
+Cash_necessaire = Apport + Total_frais
+
+
+------------------------------------------------
+VIII. UX / CONVERSION
+------------------------------------------------
+
+Afficher :
+- Détail ligne par ligne
+- % des frais vs prix d’achat
+- Comparaison Olé Hadach / non Olé
+- Économie réalisée grâce au statut Olé
+
+CTA final :
+- “Valider ces chiffres avec une experte”
+- “Réserver un call d’analyse personnalisé”
+
+Mention légale :
+“Cette estimation est indicative et ne remplace pas un conseil juridique ou fiscal personnalisé.”
+
+------------------------------------------------
+FIN DU DOCUMENT
+------------------------------------------------
