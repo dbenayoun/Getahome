@@ -28,7 +28,7 @@
 
         .widget-header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             padding-bottom: 16px;
             border-bottom: 1px solid #f0f0f0;
         }
@@ -45,6 +45,44 @@
             color: #666;
             font-size: 13px;
             font-weight: 400;
+        }
+
+        /* Tabs styles */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-button:hover {
+            color: #000;
+            background: #f8f9fa;
+        }
+
+        .tab-button.active {
+            color: #000;
+            border-bottom-color: #000;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         .widget-content {
@@ -179,61 +217,6 @@
             color: #000;
         }
 
-        .result-total {
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 2px solid #dee2e6;
-        }
-
-        .result-total .detail-row {
-            font-weight: 600;
-            font-size: 14px;
-            border-bottom: none;
-        }
-
-        .ole-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            background: #d4edda;
-            color: #155724;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 500;
-            margin-top: 12px;
-        }
-
-        .disclaimer {
-            text-align: center;
-            font-size: 11px;
-            color: #999;
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 1px solid #f0f0f0;
-        }
-
-        @media (max-width: 768px) {
-            .widget-content {
-                flex-direction: column;
-            }
-
-            .input-section {
-                flex: 1;
-                width: 100%;
-            }
-
-            .result-section {
-                width: 100%;
-            }
-
-            .widget-container {
-                padding: 16px;
-            }
-
-            .result-price {
-                font-size: 28px;
-            }
-        }
-
         /* Tooltip styles */
         .tooltip-wrapper {
             position: relative;
@@ -290,6 +273,56 @@
             visibility: visible;
             opacity: 1;
         }
+
+        #oleBadge {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .widget-content {
+                flex-direction: column;
+            }
+
+            .input-section {
+                flex: 1;
+                width: 100%;
+            }
+
+            .result-section {
+                width: 100%;
+            }
+
+            .widget-container {
+                padding: 16px;
+            }
+
+            .result-price {
+                font-size: 28px;
+            }
+
+            .tabs {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .tab-button {
+                border-bottom: 1px solid #e9ecef;
+                border-right: 3px solid transparent;
+                text-align: left;
+            }
+
+            .tab-button.active {
+                border-bottom-color: #e9ecef;
+                border-right-color: #000;
+            }
+        }
     </style>
 </head>
 <body>
@@ -299,140 +332,239 @@
             <p>Estimation des frais d'acquisition immobilière en Israël</p>
         </div>
 
-        <div class="widget-content">
-            <!-- Inputs à gauche -->
-            <div class="input-section">
-                <div class="form-group">
-                    <label for="prixAchat">Prix d'achat (₪)</label>
-                    <input type="text" id="prixAchat" value="4 020 000" placeholder="4 000 000">
-                </div>
+        <!-- Tabs Navigation -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('forward')">Prix → Cash nécessaire</button>
+            <button class="tab-button" onclick="switchTab('reverse')">Cash disponible → Prix max</button>
+        </div>
 
-                <div class="form-group">
-                    <label for="typeAchat">Type d'achat</label>
-                    <select id="typeAchat">
-                        <option value="residence">Premier ou seul bien</option>
-                        <option value="revente">Je vends pour acheter plus grand</option>
-                        <option value="investissement">2ème bien ou plus</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="etatBien">État du bien</label>
-                    <select id="etatBien">
-                        <option value="ancien">Ancien</option>
-                        <option value="neuf">Neuf</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="apport">Apport (%)</label>
-                    <select id="apport">
-                        <option value="0.25" selected>25%</option>
-                        <option value="0.30">30%</option>
-                        <option value="0.35">35%</option>
-                        <option value="0.40">40%</option>
-                        <option value="0.50">50%</option>
-                        <option value="0.75">75%</option>
-                        <option value="1.00">100%</option>
-                    </select>
-                </div>
-
-                <div class="checkbox-group">
-                    <input type="checkbox" id="isOle">
-                    <label for="isOle">Olé Hadach</label>
-                    <div class="tooltip-wrapper">
-                        <span class="tooltip-icon">?</span>
-                        <span class="tooltip-text" id="oleTooltip">Avantage réservé à la résidence principale uniquement (non applicable pour investissement)</span>
+        <!-- Tab 1: Forward Calculator (Prix → Cash) -->
+        <div id="tab-forward" class="tab-content active">
+            <div class="widget-content">
+                <!-- Inputs à gauche -->
+                <div class="input-section">
+                    <div class="form-group">
+                        <label for="prixAchat">Prix d'achat (₪)</label>
+                        <input type="text" id="prixAchat" value="4 020 000" placeholder="4 000 000">
                     </div>
-                </div>
 
-                <div class="checkbox-group">
-                    <input type="checkbox" id="avecAgent" checked>
-                    <label for="avecAgent">Agent (2%)</label>
-                </div>
+                    <div class="form-group">
+                        <label for="typeAchat">Type d'achat</label>
+                        <select id="typeAchat">
+                            <option value="residence">Premier ou seul bien</option>
+                            <option value="revente">Je vends pour acheter plus grand</option>
+                            <option value="investissement">2ème bien ou plus</option>
+                        </select>
+                    </div>
 
-                <div class="checkbox-group">
-                    <input type="checkbox" id="avecCourtier" checked>
-                    <label for="avecCourtier">Courtier (1%)</label>
-                </div>
-            </div>
+                    <div class="form-group">
+                        <label for="etatBien">État du bien</label>
+                        <select id="etatBien">
+                            <option value="ancien">Ancien</option>
+                            <option value="neuf">Neuf</option>
+                        </select>
+                    </div>
 
-            <!-- Résultats à droite -->
-            <div class="result-section">
-                <div id="resultCard" class="result-card">
-                    <div class="result-label">CASH NÉCESSAIRE</div>
-                    <div class="result-price" id="cashTotal">₪1,498,046</div>
-                    
-                    <div class="result-details">
-                        <div class="detail-row">
-                            <span class="detail-label">Prix d'achat</span>
-                            <span class="detail-value" id="resPrixAchat">₪4,020,000</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Apport</span>
-                            <span class="detail-value" id="resApport">₪1,206,000</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Prêt</span>
-                            <span class="detail-value" id="resPret">₪2,814,000</span>
+                    <div class="form-group">
+                        <label for="apport">Apport (%)</label>
+                        <select id="apport">
+                            <option value="0.25" selected>25%</option>
+                            <option value="0.30">30%</option>
+                            <option value="0.35">35%</option>
+                            <option value="0.40">40%</option>
+                            <option value="0.50">50%</option>
+                            <option value="0.75">75%</option>
+                            <option value="1.00">100%</option>
+                        </select>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="isOle">
+                        <label for="isOle">Olé Hadach</label>
+                        <div class="tooltip-wrapper">
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">Avantage réservé à la résidence principale uniquement (non applicable pour investissement)</span>
                         </div>
                     </div>
 
-                    <div class="result-details" style="margin-top: 16px;">
-                        <div class="detail-row">
-                            <span class="detail-label">Taxe d'acquisition (Mas Rechisha)</span>
-                            <span class="detail-value" id="resMasRechisha">₪99,684</span>
-                        </div>
-                        <div class="detail-row" id="rowAgent">
-                            <span class="detail-label">Agent</span>
-                            <span class="detail-value" id="resAgent">₪94,872</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Avocat</span>
-                            <span class="detail-value" id="resAvocat">₪47,436</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Expertise du bien (Shammai)</span>
-                            <span class="detail-value">₪3,500</span>
-                        </div>
-                        <div class="detail-row" id="rowCourtier">
-                            <span class="detail-label">Courtier</span>
-                            <span class="detail-value" id="resCourtier">₪33,205</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Cadastre</span>
-                            <span class="detail-value">₪1,500</span>
-                        </div>
-                        <div class="detail-row" id="rowDossier">
-                            <span class="detail-label">Dossier banque</span>
-                            <span class="detail-value" id="resDossier">₪9,849</span>
-                        </div>
-                        <div class="detail-row" id="rowHypotheque">
-                            <span class="detail-label">Hypothèque</span>
-                            <span class="detail-value">₪1,500</span>
-                        </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="avecAgent" checked>
+                        <label for="avecAgent">Agent (2%)</label>
                     </div>
 
-                    <div class="result-total">
-                        <div class="detail-row">
-                            <span class="detail-label">Total frais</span>
-                            <span class="detail-value" id="resTotalFrais">₪292,046</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Budget total</span>
-                            <span class="detail-value" id="resBudgetTotal">₪4,312,046</span>
-                        </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="avecCourtier" checked>
+                        <label for="avecCourtier">Courtier (1%)</label>
                     </div>
+                </div>
 
-                    <div id="oleBadge" style="display: none; text-align: center;">
-                        <div class="ole-badge">💡 Économie Olé: <span id="oleEconomie">₪89,478</span></div>
+                <!-- Résultats à droite -->
+                <div class="result-section">
+                    <div class="result-card">
+                        <div class="result-label">CASH NÉCESSAIRE</div>
+                        <div class="result-price" id="cashTotal">₪0</div>
+                        
+                        <div class="result-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Prix d'achat</span>
+                                <span class="detail-value" id="resPrixAchat">₪0</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Apport</span>
+                                <span class="detail-value" id="resApport">₪0</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Prêt</span>
+                                <span class="detail-value" id="resPret">₪0</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Mas Rechisha</span>
+                                <span class="detail-value" id="resMasRechisha">₪0</span>
+                            </div>
+                            <div class="detail-row" id="rowAgent">
+                                <span class="detail-label">Agent</span>
+                                <span class="detail-value" id="resAgent">₪0</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Avocat</span>
+                                <span class="detail-value" id="resAvocat">₪0</span>
+                            </div>
+                            <div class="detail-row" id="rowCourtier">
+                                <span class="detail-label">Courtier</span>
+                                <span class="detail-value" id="resCourtier">₪0</span>
+                            </div>
+                            <div class="detail-row" id="rowDossier">
+                                <span class="detail-label">Frais dossier</span>
+                                <span class="detail-value" id="resDossier">₪0</span>
+                            </div>
+                            <div class="detail-row" id="rowHypotheque">
+                                <span class="detail-label">Hypothèque</span>
+                                <span class="detail-value" id="resHypotheque">₪1,500</span>
+                            </div>
+                            <div class="detail-row" style="border-top: 2px solid #333; font-weight: 600; padding-top: 12px; margin-top: 8px;">
+                                <span class="detail-label">Total frais</span>
+                                <span class="detail-value" id="resTotalFrais">₪0</span>
+                            </div>
+                            <div class="detail-row" style="font-weight: 600;">
+                                <span class="detail-label">Budget total</span>
+                                <span class="detail-value" id="resBudgetTotal">₪0</span>
+                            </div>
+                        </div>
+
+                        <div id="oleBadge">
+                            <strong>Économie Olé:</strong> <span id="oleEconomie">₪0</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="disclaimer">
-            ⚠️ Estimation indicative - Ne remplace pas un conseil juridique ou fiscal personnalisé
+        <!-- Tab 2: Reverse Calculator (Cash → Prix max) -->
+        <div id="tab-reverse" class="tab-content">
+            <div class="widget-content">
+                <!-- Inputs à gauche -->
+                <div class="input-section">
+                    <div class="form-group">
+                        <label for="cashDisponible">Cash disponible (₪)</label>
+                        <input type="text" id="cashDisponible" value="1 500 000" placeholder="1 500 000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="typeAchatReverse">Type d'achat</label>
+                        <select id="typeAchatReverse">
+                            <option value="residence">Premier ou seul bien</option>
+                            <option value="revente">Je vends pour acheter plus grand</option>
+                            <option value="investissement">2ème bien ou plus</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="etatBienReverse">État du bien</label>
+                        <select id="etatBienReverse">
+                            <option value="ancien">Ancien</option>
+                            <option value="neuf">Neuf</option>
+                        </select>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="isOleReverse">
+                        <label for="isOleReverse">Olé Hadach</label>
+                        <div class="tooltip-wrapper">
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">Avantage réservé à la résidence principale uniquement (non applicable pour investissement)</span>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="avecAgentReverse" checked>
+                        <label for="avecAgentReverse">Agent (2%)</label>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="avecCourtierReverse" checked>
+                        <label for="avecCourtierReverse">Courtier (1%)</label>
+                    </div>
+                </div>
+
+                <!-- Résultats à droite -->
+                <div class="result-section">
+                    <div class="result-card">
+                        <div class="result-label">PRIX D'ACHAT MAXIMUM</div>
+                        <div class="result-price" id="prixMaximum">₪0</div>
+                        
+                        <div class="result-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Cash disponible</span>
+                                <span class="detail-value" id="resCashDispo">₪0</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Apport minimum</span>
+                                <span class="detail-value" id="resApportMin">25%</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Apport (₪)</span>
+                                <span class="detail-value" id="resApportReverse">₪0</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Prêt</span>
+                                <span class="detail-value" id="resPretReverse">₪0</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Mas Rechisha</span>
+                                <span class="detail-value" id="resMasReverse">₪0</span>
+                            </div>
+                            <div class="detail-row" id="rowAgentReverse">
+                                <span class="detail-label">Agent</span>
+                                <span class="detail-value" id="resAgentReverse">₪0</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Avocat</span>
+                                <span class="detail-value" id="resAvocatReverse">₪0</span>
+                            </div>
+                            <div class="detail-row" id="rowCourtierReverse">
+                                <span class="detail-label">Courtier</span>
+                                <span class="detail-value" id="resCourtierReverse">₪0</span>
+                            </div>
+                            <div class="detail-row" id="rowDossierReverse">
+                                <span class="detail-label">Frais dossier</span>
+                                <span class="detail-value" id="resDossierReverse">₪0</span>
+                            </div>
+                            <div class="detail-row" id="rowHypothequeReverse">
+                                <span class="detail-label">Hypothèque</span>
+                                <span class="detail-value" id="resHypothequeReverse">₪1,500</span>
+                            </div>
+                            <div class="detail-row" style="border-top: 2px solid #333; font-weight: 600; padding-top: 12px; margin-top: 8px;">
+                                <span class="detail-label">Total frais</span>
+                                <span class="detail-value" id="resTotalFraisReverse">₪0</span>
+                            </div>
+                        </div>
+
+                        <div id="oleBadgeReverse" style="display: none;">
+                            <strong>Économie Olé:</strong> <span id="oleEconomieReverse">₪0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -615,6 +747,51 @@
                     comparaisonOle: comparaisonOle
                 };
             }
+
+            static calculateMaxPrice(cashDisponible, typeAchat, isOleHadach, achatNeuf, 
+                                     avecAgent, avecCourtier) {
+                const minApport = this.getMinimumApport(typeAchat);
+                
+                // Estimation initiale - on suppose ~10% de frais
+                let prixEstime = cashDisponible / (minApport + 0.10);
+                let iterations = 0;
+                const maxIterations = 20;
+                const tolerance = 1000; // Convergence à 1000₪ près
+                
+                while (iterations < maxIterations) {
+                    // Calculer les frais pour ce prix
+                    const result = this.calculateAllFees(
+                        prixEstime, typeAchat, isOleHadach, minApport,
+                        avecAgent, achatNeuf, avecCourtier, false
+                    );
+                    
+                    // Vérifier si cash nécessaire correspond
+                    const diff = result.cashNecessaire - cashDisponible;
+                    
+                    if (Math.abs(diff) < tolerance) {
+                        return result; // Convergence atteinte
+                    }
+                    
+                    // Ajuster le prix
+                    // Si on a besoin de plus de cash, diminuer le prix
+                    // Si on a trop de cash, augmenter le prix
+                    const fraisEstimes = result.totalFrais;
+                    prixEstime = (cashDisponible - fraisEstimes) / minApport;
+                    
+                    // Protection contre les valeurs négatives
+                    if (prixEstime <= 0) {
+                        return null;
+                    }
+                    
+                    iterations++;
+                }
+                
+                // Si pas de convergence exacte, retourner la dernière estimation
+                return this.calculateAllFees(
+                    prixEstime, typeAchat, isOleHadach, minApport,
+                    avecAgent, achatNeuf, avecCourtier, false
+                );
+            }
         }
 
         function formatCurrency(amount) {
@@ -631,6 +808,27 @@
         function parseFormattedNumber(value) {
             // Remove spaces and parse as float
             return parseFloat(value.replace(/\s/g, '')) || 0;
+        }
+
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById('tab-' + tabName).classList.add('active');
+            
+            // Calculate results for the new tab
+            if (tabName === 'forward') {
+                calculate();
+            } else {
+                calculateReverse();
+            }
         }
 
         function updateApportOptions(typeAchat) {
@@ -656,8 +854,6 @@
 
         function calculate() {
             try {
-                console.log('Calculate function called');
-                
                 // Récupérer les valeurs
                 const prixAchat = parseFormattedNumber(document.getElementById('prixAchat').value);
                 const typeAchat = document.getElementById('typeAchat').value;
@@ -667,8 +863,6 @@
                 const avecAgent = document.getElementById('avecAgent').checked;
                 const avecCourtier = document.getElementById('avecCourtier').checked;
 
-                console.log('Inputs:', { prixAchat, typeAchat, etatBien, isOle, apport, avecAgent, avecCourtier });
-
                 const achatNeuf = etatBien === 'neuf';
 
                 // Calculer
@@ -676,8 +870,6 @@
                     prixAchat, typeAchat, isOle, apport,
                     avecAgent, achatNeuf, avecCourtier, false
                 );
-
-                console.log('Result:', result);
 
                 // Afficher les résultats principaux
                 document.getElementById('cashTotal').textContent = formatCurrency(result.cashNecessaire);
@@ -716,14 +908,79 @@
                     document.getElementById('oleBadge').style.display = 'none';
                 }
 
-                console.log('Calculation completed successfully');
             } catch (error) {
                 console.error('Error in calculate function:', error);
-                alert('Erreur lors du calcul: ' + error.message);
             }
         }
 
-        // Désactiver la case Olé si investissement
+        function calculateReverse() {
+            try {
+                // Récupérer les valeurs
+                const cashDisponible = parseFormattedNumber(document.getElementById('cashDisponible').value);
+                const typeAchat = document.getElementById('typeAchatReverse').value;
+                const etatBien = document.getElementById('etatBienReverse').value;
+                const isOle = document.getElementById('isOleReverse').checked;
+                const avecAgent = document.getElementById('avecAgentReverse').checked;
+                const avecCourtier = document.getElementById('avecCourtierReverse').checked;
+
+                const achatNeuf = etatBien === 'neuf';
+
+                // Calculer prix maximum
+                const result = BudgetSimulator.calculateMaxPrice(
+                    cashDisponible, typeAchat, isOle, achatNeuf,
+                    avecAgent, avecCourtier
+                );
+
+                if (!result) {
+                    alert('Impossible de calculer un prix avec ce montant de cash');
+                    return;
+                }
+
+                const minApport = BudgetSimulator.getMinimumApport(typeAchat);
+
+                // Afficher les résultats principaux
+                document.getElementById('prixMaximum').textContent = formatCurrency(result.prixAchat);
+                document.getElementById('resCashDispo').textContent = formatCurrency(cashDisponible);
+                document.getElementById('resApportMin').textContent = Math.round(minApport * 100) + '%';
+                document.getElementById('resApportReverse').textContent = formatCurrency(result.apport);
+                document.getElementById('resPretReverse').textContent = formatCurrency(result.montantPret);
+
+                // Détail des frais
+                document.getElementById('resMasReverse').textContent = 
+                    formatCurrency(result.fraisDetail.masRechisha);
+                document.getElementById('resAgentReverse').textContent = 
+                    formatCurrency(result.fraisDetail.agent);
+                document.getElementById('resAvocatReverse').textContent = 
+                    formatCurrency(result.fraisDetail.avocat);
+                document.getElementById('resCourtierReverse').textContent = 
+                    formatCurrency(result.fraisDetail.courtier);
+                document.getElementById('resDossierReverse').textContent = 
+                    formatCurrency(result.fraisDetail.dossierBanque);
+
+                // Total
+                document.getElementById('resTotalFraisReverse').textContent = formatCurrency(result.totalFrais);
+
+                // Masquer/afficher les lignes selon les options
+                document.getElementById('rowAgentReverse').style.display = avecAgent ? 'flex' : 'none';
+                document.getElementById('rowCourtierReverse').style.display = avecCourtier ? 'flex' : 'none';
+                document.getElementById('rowDossierReverse').style.display = result.montantPret > 0 ? 'flex' : 'none';
+                document.getElementById('rowHypothequeReverse').style.display = result.montantPret > 0 ? 'flex' : 'none';
+
+                // Badge Olé
+                if (isOle && result.comparaisonOle && result.comparaisonOle.economie > 0) {
+                    document.getElementById('oleBadgeReverse').style.display = 'block';
+                    document.getElementById('oleEconomieReverse').textContent = 
+                        formatCurrency(result.comparaisonOle.economie);
+                } else {
+                    document.getElementById('oleBadgeReverse').style.display = 'none';
+                }
+
+            } catch (error) {
+                console.error('Error in calculateReverse function:', error);
+            }
+        }
+
+        // Tab 1: Forward calculator event listeners
         document.getElementById('typeAchat').addEventListener('change', function() {
             const isInvest = this.value === 'investissement';
             
@@ -739,16 +996,13 @@
             calculate();
         });
 
-        // Format price input as user types
         document.getElementById('prixAchat').addEventListener('input', function(e) {
             const cursorPosition = e.target.selectionStart;
             const oldValue = e.target.value;
             const oldLength = oldValue.length;
             
-            // Format the value
             e.target.value = formatNumberInput(oldValue);
             
-            // Adjust cursor position after formatting
             const newLength = e.target.value.length;
             const diff = newLength - oldLength;
             e.target.setSelectionRange(cursorPosition + diff, cursorPosition + diff);
@@ -756,17 +1010,48 @@
             calculate();
         });
 
-        // Calculer en temps réel sur changement
         document.getElementById('etatBien').addEventListener('change', calculate);
         document.getElementById('isOle').addEventListener('change', calculate);
         document.getElementById('apport').addEventListener('change', calculate);
         document.getElementById('avecAgent').addEventListener('change', calculate);
         document.getElementById('avecCourtier').addEventListener('change', calculate);
 
+        // Tab 2: Reverse calculator event listeners
+        document.getElementById('typeAchatReverse').addEventListener('change', function() {
+            const isInvest = this.value === 'investissement';
+            
+            document.getElementById('isOleReverse').disabled = isInvest;
+            if (isInvest) {
+                document.getElementById('isOleReverse').checked = false;
+            }
+            
+            calculateReverse();
+        });
+
+        document.getElementById('cashDisponible').addEventListener('input', function(e) {
+            const cursorPosition = e.target.selectionStart;
+            const oldValue = e.target.value;
+            const oldLength = oldValue.length;
+            
+            e.target.value = formatNumberInput(oldValue);
+            
+            const newLength = e.target.value.length;
+            const diff = newLength - oldLength;
+            e.target.setSelectionRange(cursorPosition + diff, cursorPosition + diff);
+            
+            calculateReverse();
+        });
+
+        document.getElementById('etatBienReverse').addEventListener('change', calculateReverse);
+        document.getElementById('isOleReverse').addEventListener('change', calculateReverse);
+        document.getElementById('avecAgentReverse').addEventListener('change', calculateReverse);
+        document.getElementById('avecCourtierReverse').addEventListener('change', calculateReverse);
+
         // Initialiser au chargement
         window.addEventListener('DOMContentLoaded', function() {
             updateApportOptions(document.getElementById('typeAchat').value);
             calculate();
+            calculateReverse();
         });
     </script>
 </body>
